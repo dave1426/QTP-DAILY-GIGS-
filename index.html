@@ -1,59 +1,197 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="scroll-smooth">
 <head>
-<title>QTP DAILY GIGS - A QTP Group of Companies</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QTP DAILY GIGS | Free Jobs in Cape Town</title>
+    
+    <link rel="icon" type="image/jpeg" href="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&w=200">
+    <meta property="og:title" content="QTP DAILY GIGS | Free Jobs in Cape Town">
+    <meta property="og:description" content="100% FREE Jobs in Cape Town. Apply and Post Jobs for Free. Get hired in 48 hours.">
+    <meta property="og:type" content="website">
 
-<!-- FAVICON -->
-<link rel="icon" type="image/jpeg" href="1787084320805.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        function filterSites(category) {
+            const sites = document.querySelectorAll('.site-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            event.target.classList.add('bg-blue-600', 'text-white');
+            event.target.classList.remove('bg-gray-200', 'text-gray-700');
 
-<style>
-body{font-family:Arial;text-align:center;padding:20px;background:#f0f0f0}
-.box{background:white;padding:30px;border-radius:10px;max-width:500px;margin:auto;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
-.logo{max-width:220px;margin-bottom:10px}
-h1{color:#1E5FAA;margin:5px 0}
-h3{margin:15px 0 5px 0}
-.btn{background:#25D366;color:white;padding:15px 25px;text-decoration:none;border-radius:8px;display:inline-block;font-size:16px;font-weight:bold;margin:8px;width:85%;max-width:300px}
-.btn-hire{background:#1E5FAA} /* Blue for employers */
-.btn-group{background:#25D366} /* Green for instant group */
-.btn-job{background:#FFA500} /* Orange for job inquire */
-.small{font-size:12px;color:gray;margin-top:20px}
-.contact{margin-top:15px}
-.divider{margin:15px 0;border-top:1px solid #ddd}
-.note{font-size:11px;color:#555}
-</style>
+            sites.forEach(site => {
+                if (category === 'all' || site.dataset.category === category) {
+                    site.style.display = 'block';
+                } else {
+                    site.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </head>
-<body>
-<div class="box">
-<img src="1787084320805.jpg" class="logo" alt="QTP Daily Gigs Logo">
-<p><b>A QTP Group of Companies</b></p>
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-<!-- OPTION 1: VETTED JOBS -->
-<h3>Get 3 PAID JOBS at 8AM Daily</h3>
-<p class="note">We send you jobs personally. 100% FREE</p>
-<a href="https://wa.me/27837327440?text=JOIN%20-%20I%20NEED%20JOBS" class="btn btn-job">Inquire For a Job</a>
+    <!-- Header -->
+    <header class="sticky top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2.5 font-bold text-xl group">
+                <i class="fa-solid fa-briefcase text-blue-600 text-2xl"></i>
+                <span>QTP <span class="text-blue-600">DAILY GIGS</span></span>
+            </a>
+            <a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20POST%20A%20JOB%20for%20free" target="_blank" class="bg-green-600 text-white px-5 py-2 rounded-full text-sm font-bold shadow hover:bg-green-700 transition">POST A JOB FREE</a>
+        </div>
+    </header>
 
-<div class="divider"></div>
+    <!-- HERO -->
+    <section class="py-24 px-6 text-center bg-gradient-to-r from-blue-600 to-green-500 text-white">
+        <div class="max-w-3xl mx-auto flex flex-col items-center">
+            <h1 class="text-4xl sm:text-6xl font-extrabold mb-4">Daily Jobs in Cape Town</h1>
+            <p class="text-lg mb-4 max-w-2xl mx-auto">100% FREE to Apply and Post. Get hired in 48 hours.</p>
+            
+            <!-- FREE BANNER -->
+            <div class="bg-yellow-400 text-black font-bold px-6 py-3 rounded-full mb-8 flex items-center gap-2 shadow-lg">
+                <i class="fa-solid fa-check-circle"></i> NO FEES. NO SCAMS. JUST JOBS.
+            </div>
 
-<!-- OPTION 2: INSTANT GROUP -->
-<h3>Want to Join Instantly?</h3>
-<p class="note">No waiting. Join 1000s of workers now</p>
-<a href="https://chat.whatsapp.com/LryS0TwbP7V0Ndvh1UqSnu?s=cl&p=a&ilr=4" class="btn btn-group">JOIN GROUP INSTANTLY</a>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#jobs" class="bg-white text-blue-600 font-bold px-8 py-4 rounded-full shadow-xl hover:bg-gray-100 transition">FIND A JOB NOW</a>
+                <a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20POST%20A%20JOB%20for%20free" target="_blank" class="bg-gray-900 text-white font-bold px-8 py-4 rounded-full shadow-xl hover:bg-black transition">POST A JOB FREE</a>
+            </div>
+        </div>
+    </section>
 
-<div class="divider"></div>
+    <!-- JOBS GRID WITH FILTERS -->
+    <section id="jobs" class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-4">Latest Jobs in Cape Town <span class="text-green-500">✅</span></h2>
+            <p class="text-center text-gray-600 mb-8">New jobs posted daily. Click "Apply on WhatsApp" to apply instantly.</p>
+            
+            <!-- FILTER BUTTONS -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button onclick="filterSites('all')" class="filter-btn bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-bold shadow">All Jobs</button>
+                <button onclick="filterSites('cleaning')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow hover:bg-gray-300">Cleaning</button>
+                <button onclick="filterSites('construction')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow hover:bg-gray-300">Construction</button>
+                <button onclick="filterSites('retail')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow hover:bg-gray-300">Retail/Waitress</button>
+                <button onclick="filterSites('admin')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow hover:bg-gray-300">Admin/Office</button>
+                <button onclick="filterSites('security')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow hover:bg-gray-300">Security</button>
+            </div>
 
-<!-- OPTION 3: EMPLOYERS -->
-<h3>Have a Job? Post it here</h3>
-<p class="note">100% Free to post a Job. We send it to 1000s of workers</p>
-<a href="https://wa.me/27837327440?text=POST%20JOB%20-%20I%20WANT%20TO%20HIRE" class="btn btn-hire">POST A JOB</a>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-<div class="contact">
-<p><b>WhatsApp:</b> +27837327440</p>
-<p><b>Email:</b> qtpgroupofcompanies@gmail.com</p>
-</div>
+                <!-- JOB 1 -->
+                <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-green-500" data-category="cleaning">
+                    <img src="https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&w=600" class="w-full h-48 object-cover" alt="Cleaning Job">
+                    <div class="p-6">
+                        <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">CLEANING</span>
+                        <h3 class="font-bold text-xl mt-3 mb-2">House Cleaner Needed</h3>
+                        <p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>Claremont, Cape Town</p>
+                        <p class="text-gray-600 text-sm mb-4">Mon-Fri. R250/day. Start immediately.</p>
+                        <a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20House%20Cleaner%20Job" target="_blank" class="w-full bg-green-600 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a>
+                    </div>
+                </div>
 
-<hr>
-<p class="small">Other QTP Companies: QTP Tours | QTP Web | QTP Trading</p>
-</div>
+                <!-- JOB 2 -->
+                <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-orange-500" data-category="construction">
+                    <img src="https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&w=600" class="w-full h-48 object-cover" alt="Construction Job">
+                    <div class="p-6">
+                        <span class="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-bold">CONSTRUCTION</span>
+                        <h3 class="font-bold text-xl mt-3 mb-2">General Workers x5</h3>
+                        <p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>CBD, Cape Town</p>
+                        <p class="text-gray-600 text-sm mb-4">R300/day. No experience needed. Tools provided.</p>
+                        <a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20General%20Worker%20Job" target="_blank" class="w-full bg-orange-600 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a>
+                    </div>
+                </div>
+
+                <!-- JOB 3 -->
+                <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-pink-500" data-category="retail">
+                    <img src="https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&w=600" class="w-full h-48 object-cover" alt="Waitress Job">
+                    <div class="p-6">
+                        <span class="text-xs bg-pink-100 text-pink-700 px-3 py-1 rounded-full font-bold">RETAIL/WAITRESS</span>
+                        <h3 class="font-bold text-xl mt-3 mb-2">Waitress Needed</h3>
+                        <p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>Sea Point, Cape Town</p>
+                        <p class="text-gray-600 text-sm mb-4">Weekends + Tips. R200/day + food.</p>
+                        <a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20Waitress%20Job" target="_blank" class="w-full bg-pink-600 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a>
+                    </div>
+                </div>
+
+                <!-- JOB 4 -->
+                <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-blue-500" data-category="admin">
+                    <img src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&w=600" class="w-full h-48 object-cover" alt="Admin Job">
+                    <div class="p-6">
+                        <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-bold">ADMIN/OFFICE</span>
+                        <h3 class="font-bold text-xl mt-3 mb-2">Data Capturer</h3>
+                        <p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>Remote / Bellville</p>
+                        <p class="text-gray-600 text-sm mb-4">Part-time. R3500/month. Basic computer skills.</p>
+                        <a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20Data%20Capturer%20Job" target="_blank" class="w-full bg-blue-600 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a>
+                    </div>
+                </div>
+
+                <!-- JOB 5 -->
+                <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-gray-700" data-category="security">
+                    <img src="https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&w=600" class="w-full h-48 object-cover" alt="Security Job">
+                    <div class="p-6">
+                        <span class="text-xs bg-gray-200 text-gray-800 px-3 py-1 rounded-full font-bold">SECURITY</span>
+                        <h3 class="font-bold text-xl mt-3 mb-2">Security Guards Needed</h3>
+                        <p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>Mitchells Plain</p>
+                        <p class="text-gray-600 text-sm mb-4">Night shift. PSIRA required. R4000/month.</p>
+                        <a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20Security%20Guard%20Job" target="_blank" class="w-full bg-gray-800 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a>
+                    </div>
+                </div>
+
+                <!-- JOB 6 - EMPLOYER CTA -->
+                <div class="site-card bg-gradient-to-br from-green-500 to-blue-600 text-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition flex flex-col justify-center items-center text-center p-8" data-category="all">
+                    <i class="fa-solid fa-bullhorn text-5xl mb-4"></i>
+                    <h3 class="font-bold text-2xl mb-2">Are You Hiring?</h3>
+                    <p class="text-sm mb-6">Post your job here for FREE. Reach 1000+ job seekers in Cape Town.</p>
+                    <a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20POST%20A%20JOB%20for%20free" target="_blank" class="bg-white text-green-600 px-6 py-3 rounded-full text-sm font-bold inline-block">POST A JOB FREE →</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="py-20 px-6 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">How It Works - 100% Free</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="p-6">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-1 text-blue-600 text-2xl"></i></div>
+                    <h3 class="font-bold text-xl mb-2">1. Find Job</h3>
+                    <p class="text-gray-600">Browse jobs by category. New jobs added daily.</p>
+                </div>
+                <div class="p-6">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-2 text-green-600 text-2xl"></i></div>
+                    <h3 class="font-bold text-xl mb-2">2. Apply on WhatsApp</h3>
+                    <p class="text-gray-600">Click the button. Chat directly with the employer. No fees.</p>
+                </div>
+                <div class="p-6">
+                    <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-3 text-orange-600 text-2xl"></i></div>
+                    <h3 class="font-bold text-xl mb-2">3. Get Hired</h3>
+                    <p class="text-gray-600">Get interviewed and start work. We connect you, that's it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-20 px-6 bg-blue-600 text-white text-center">
+        <div class="max-w-3xl mx-auto flex-col items-center">
+            <h2 class="text-3xl font-bold mb-4">Need Help or Want to Post a Job?</h2>
+            <p class="mb-8">Posting is FREE. We will help you write your job ad.</p>
+            <a href="https://wa.me/27837327440" target="_blank" class="bg-white text-blue-600 font-bold px-8 py-4 rounded-full shadow-xl hover:bg-gray-100 transition inline-flex items-center">
+                <i class="fa-brands fa-whatsapp mr-2 text-xl text-green-600"></i> WhatsApp Us +27 83 732 7440
+            </a>
+        </div>
+    </section>
+
+    <footer class="py-6 text-center bg-gray-900 text-gray-400 text-sm">
+        &copy; 2026 QTP DAILY GIGS. Connecting Cape Town to Work. <br>100% Free for Job Seekers and Employers.
+    </footer>
 </body>
 </html>
