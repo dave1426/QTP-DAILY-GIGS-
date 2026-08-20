@@ -9,33 +9,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
-        body{font-family:'Inter',sans-serif;}
+        body{font-family:'Inter',sans-serif;overflow-x:hidden;}
+       .popup-box{max-width:92%;width:480px;max-height:90vh;overflow-y:auto;}
+        @media(max-width:400px){.popup-box{max-width:96%;width:96%;}}
     </style>
     <script>
-        function filterSites(c){
+        function filterSites(c,el){
             const s=document.querySelectorAll('.site-card');
-            document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('bg-blue-600','text-white'));
-            event.target.classList.add('bg-blue-600','text-white');
+            document.querySelectorAll('.filter-btn').forEach(b=>{b.className='filter-btn bg-white border px-4 py-2 rounded-full text-sm font-bold';});
+            el.className='filter-btn bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold';
             s.forEach(x=>{x.style.display=(c==='all'||x.dataset.category===c)?'block':'none';});
         }
         function openPopup(id){document.getElementById(id).classList.remove('hidden');document.body.style.overflow='hidden';}
         function closePopup(id){document.getElementById(id).classList.add('hidden');document.body.style.overflow='auto';}
-
         function submitDriver(){
             const name=document.getElementById('d_name').value.trim();
             const loc=document.getElementById('d_loc').value.trim();
-            const car=document.getElementById('d_car').value.trim()||"Any car - open to options";
+            const car=document.getElementById('d_car').value.trim()||"Any car";
             const deposit=document.getElementById('d_deposit').value;
-            const installment=document.getElementById('d_installment').checked? "YES - Will pay in installments until complete" : "No - One time";
+            const installment=document.getElementById('d_installment').checked? "YES - Installments until complete" : "No";
             const agree=document.getElementById('d_agree').checked;
             const parking=document.getElementById('d_parking').value;
             const pdp=document.getElementById('d_pdp').value;
             const permit=document.getElementById('d_permit').value;
             const platform=document.getElementById('d_platform').value;
-            const plan=document.getElementById('d_plan').value;
-            if(!name||!loc||!deposit){alert('Please fill Name, Location, Deposit *');return;}
-            if(!agree){alert('Please tick the agreement: Deposit refundable only if car returned in good shape *');return;}
-            const msg=`*NEW DRIVER LEAD - QTP*%0A%0A*Name:* ${name}%0A*Location:* ${loc}%0A*Car(s) Wanted:* ${car}%0A*Deposit:* ${deposit}%0A*Installment:* ${installment}%0A*Safe Parking:* ${parking}%0A*PDP:* ${pdp}%0A*Permit Preference:* ${permit}%0A*Platform:* ${platform}%0A*Plan:* ${plan}%0A%0A✅ *Agreement Accepted:* Deposit refundable only if car returned in good shape / same condition`;
+            if(!name||!loc||!deposit){alert('Fill Name, Location, Deposit');return;}
+            if(!agree){alert('Please tick the agreement');return;}
+            const msg=`*NEW DRIVER LEAD - QTP*%0A%0A*Name:* ${name}%0A*Location:* ${loc}%0A*Car(s):* ${car}%0A*Deposit:* ${deposit}%0A*Installment:* ${installment}%0A*Parking:* ${parking}%0A*PDP:* ${pdp}%0A*Permit:* ${permit}%0A*Platform:* ${platform}%0A%0A✅ *Agreed:* Deposit refundable only if car returned in good shape`;
             window.open(`https://wa.me/27837327440?text=${msg}`,'_blank');
             closePopup('driverForm');
         }
@@ -45,14 +45,14 @@
             const year=document.getElementById('o_year').value.trim()||"N/A";
             const permit=document.getElementById('o_permit').value;
             const deposit=document.getElementById('o_deposit').value;
-            const installment=document.getElementById('o_installment').checked? "YES - Accept flexible installments until complete" : "No - Require full deposit";
+            const installment=document.getElementById('o_installment').checked? "YES - Accept installments" : "No";
             const agree=document.getElementById('o_agree').checked;
             const parking=document.getElementById('o_parking').value;
             const target=document.getElementById('o_target').value||"Not set";
             const loc=document.getElementById('o_loc').value.trim();
-            if(!name||!car||!loc){alert('Please fill Name, Car, Location *');return;}
-            if(!agree){alert('Please tick the agreement: Deposit refundable only if car returned in good shape *');return;}
-            const msg=`*NEW OWNER LEAD - QTP*%0A%0A*Name:* ${name}%0A*Car:* ${car} (${year})%0A*Has Permit?:* ${permit}%0A*Deposit Required:* ${deposit}%0A*Installment Flexibility:* ${installment}%0A*Parking Required:* ${parking}%0A*Weekly Target:* R${target}%0A*Location:* ${loc}%0A%0A✅ *Agreement Accepted:* Deposit refundable only if car returned in good shape / same condition`;
+            if(!name||!car||!loc){alert('Fill Name, Car, Location');return;}
+            if(!agree){alert('Please tick the agreement');return;}
+            const msg=`*NEW OWNER LEAD - QTP*%0A%0A*Name:* ${name}%0A*Car:* ${car} (${year})%0A*Permit:* ${permit}%0A*Deposit:* ${deposit}%0A*Installment:* ${installment}%0A*Parking:* ${parking}%0A*Target:* R${target}%0A*Loc:* ${loc}%0A%0A✅ *Agreed:* Deposit refundable only if car returned in good shape`;
             window.open(`https://wa.me/27837327440?text=${msg}`,'_blank');
             closePopup('ownerForm');
         }
@@ -60,177 +60,112 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-<!-- HEADER -->
-<header class="sticky top-0 w-full bg-white/95 backdrop-blur shadow-sm z-50">
-    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" class="flex items-center gap-2.5 font-extrabold text-xl tracking-tight">
-            <img src="1787084320805.png" class="w-10 h-10 rounded-full border-2 border-blue-600 object-cover">
-            <span>QTP <span class="text-blue-600">DAILY GIGS</span></span>
+<!-- FIXED HEADER - CLEAN PROFESSIONAL -->
+<header class="sticky top-0 w-full bg-white shadow-sm z-50 border-b">
+    <div class="max-w-7xl mx-auto px-4 h-[64px] flex items-center justify-between">
+        <a href="#" class="flex items-center gap-2 font-extrabold text-[18px]">
+            <img src="1787084320805.png" class="w-9 h-9 rounded-full border border-blue-600">
+            QTP <span class="text-blue-600">DAILY GIGS</span>
         </a>
-        <div class="flex gap-2">
-            <a href="#jobs" class="bg-gray-900 text-white px-4 py-2 rounded-full text-xs font-bold">JOBS</a>
-            <a href="#e-hailing" class="bg-blue-600 text-white px-4 py-2 rounded-full text-xs font-bold">E-HAILING</a>
-            <a href="https://wa.me/27837327440" class="bg-green-600 text-white px-4 py-2 rounded-full text-xs font-bold">POST JOB FREE</a>
-        </div>
+        <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
+            <a href="#jobs" class="hover:text-blue-600">Jobs</a>
+            <a href="#e-hailing" class="hover:text-blue-600">E-Hailing</a>
+            <a href="https://wa.me/27837327440" class="bg-black text-white px-5 py-2.5 rounded-full">Post Job Free</a>
+        </nav>
+        <!-- Mobile: one clean button -->
+        <a href="https://wa.me/27837327440" class="md:hidden bg-black text-white px-4 py-2 rounded-full text-xs font-bold">Post Job</a>
     </div>
 </header>
 
 <!-- HERO -->
-<section class="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20 px-6 text-center">
-    <div class="max-w-4xl mx-auto">
-        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">Find Daily Gigs <br>In Cape Town</h1>
-        <p class="mt-4 text-blue-100 text-lg">Jobs, e-hailing, domestic, retail, drivers - Updated Daily. WhatsApp Direct.</p>
-        <div class="mt-8 flex justify-center gap-3 flex-wrap">
-            <a href="#jobs" class="bg-white text-blue-700 px-8 py-3 rounded-full font-bold"><i class="fa-solid fa-briefcase mr-2"></i>Browse Jobs</a>
-            <a href="#e-hailing" class="bg-yellow-400 text-black px-8 py-3 rounded-full font-bold"><i class="fa-solid fa-car mr-2"></i>E-Hailing Connect</a>
+<section class="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-16 md:py-20 px-6 text-center">
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl md:text-5xl font-extrabold">Find Daily Gigs<br>In Cape Town</h1>
+        <p class="mt-3 text-blue-100">Jobs, e-hailing, domestic, retail - Updated Daily</p>
+        <div class="mt-6 flex justify-center gap-3">
+            <a href="#jobs" class="bg-white text-blue-700 px-6 py-3 rounded-full font-bold text-sm">Browse Jobs</a>
+            <a href="#e-hailing" class="bg-yellow-400 text-black px-6 py-3 rounded-full font-bold text-sm">E-Hailing</a>
         </div>
     </div>
 </section>
 
-<!-- JOB FILTER + LISTINGS (Your original display) -->
-<section id="jobs" class="py-16 px-6 max-w-7xl mx-auto">
+<!-- JOBS -->
+<section id="jobs" class="py-12 px-4 max-w-7xl mx-auto">
     <div class="flex flex-wrap gap-2 justify-center mb-8">
-        <button onclick="filterSites('all')" class="filter-btn bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-bold border">All Gigs</button>
-        <button onclick="filterSites('retail')" class="filter-btn bg-white px-5 py-2 rounded-full text-sm font-bold border">Retail</button>
-        <button onclick="filterSites('domestic')" class="filter-btn bg-white px-5 py-2 rounded-full text-sm font-bold border">Domestic</button>
-        <button onclick="filterSites('driver')" class="filter-btn bg-white px-5 py-2 rounded-full text-sm font-bold border">Driver</button>
-        <button onclick="filterSites('hospitality')" class="filter-btn bg-white px-5 py-2 rounded-full text-sm font-bold border">Hospitality</button>
+        <button onclick="filterSites('all',this)" class="filter-btn bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold">All</button>
+        <button onclick="filterSites('retail',this)" class="filter-btn bg-white border px-4 py-2 rounded-full text-sm font-bold">Retail</button>
+        <button onclick="filterSites('domestic',this)" class="filter-btn bg-white border px-4 py-2 rounded-full text-sm font-bold">Domestic</button>
+        <button onclick="filterSites('driver',this)" class="filter-btn bg-white border px-4 py-2 rounded-full text-sm font-bold">Driver</button>
     </div>
-
-    <div class="grid md:grid-cols-3 gap-6">
-        <div class="site-card bg-white rounded-2xl shadow p-6 border" data-category="retail">
-            <span class="text-xs font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-full">RETAIL</span>
-            <h3 class="font-bold mt-3">Cashier / Sales Assistant</h3><p class="text-sm text-gray-500 mt-1">Seapoint, Green Point - R4500-R6000</p>
-            <a href="https://wa.me/27837327440?text=Hi%20QTP%20Retail%20Job" class="mt-4 block text-center bg-black text-white rounded-full py-2 text-sm font-bold">Apply via WhatsApp</a>
-        </div>
-        <div class="site-card bg-white rounded-2xl shadow p-6 border" data-category="domestic">
-            <span class="text-xs font-bold bg-green-100 text-green-700 px-3 py-1 rounded-full">DOMESTIC</span>
-            <h3 class="font-bold mt-3">Domestic Worker + Nanny</h3><p class="text-sm text-gray-500 mt-1">Milnerton, Parklands - Stay Out</p>
-            <a href="https://wa.me/27837327440?text=Hi%20QTP%20Domestic%20Job" class="mt-4 block text-center bg-black text-white rounded-full py-2 text-sm font-bold">Apply via WhatsApp</a>
-        </div>
-        <div class="site-card bg-white rounded-2xl shadow p-6 border" data-category="driver">
-            <span class="text-xs font-bold bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">DRIVER</span>
-            <h3 class="font-bold mt-3">Code 8 / 10 Driver</h3><p class="text-sm text-gray-500 mt-1">Cape Town - PDP Required</p>
-            <a href="https://wa.me/27837327440?text=Hi%20QTP%20Driver%20Job" class="mt-4 block text-center bg-black text-white rounded-full py-2 text-sm font-bold">Apply via WhatsApp</a>
-        </div>
+    <div class="grid md:grid-cols-3 gap-5">
+        <div class="site-card bg-white rounded-2xl shadow p-5 border" data-category="retail"><span class="text-xs font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-full">RETAIL</span><h3 class="font-bold mt-2">Cashier / Sales Assistant</h3><p class="text-sm text-gray-500">Seapoint - R4500+</p><a href="https://wa.me/27837327440" class="mt-3 block text-center bg-black text-white rounded-full py-2 text-sm font-bold">Apply</a></div>
+        <div class="site-card bg-white rounded-2xl shadow p-5 border" data-category="domestic"><span class="text-xs font-bold bg-green-100 text-green-700 px-3 py-1 rounded-full">DOMESTIC</span><h3 class="font-bold mt-2">Domestic + Nanny</h3><p class="text-sm text-gray-500">Milnerton</p><a href="https://wa.me/27837327440" class="mt-3 block text-center bg-black text-white rounded-full py-2 text-sm font-bold">Apply</a></div>
+        <div class="site-card bg-white rounded-2xl shadow p-5 border" data-category="driver"><span class="text-xs font-bold bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">DRIVER</span><h3 class="font-bold mt-2">Code 8/10 Driver</h3><p class="text-sm text-gray-500">Cape Town</p><a href="https://wa.me/27837327440" class="mt-3 block text-center bg-black text-white rounded-full py-2 text-sm font-bold">Apply</a></div>
     </div>
 </section>
 
-<!-- E-HAILING SECTION FULL -->
-<section id="e-hailing" class="py-20 px-6 bg-white border-t">
-    <div class="max-w-6xl mx-auto text-center">
-        <span class="bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-xs font-bold">MOST POPULAR IN CAPE TOWN</span>
-        <h2 class="text-4xl font-extrabold mt-4 mb-3">QTP E-HAILING CONNECT <i class="fa-solid fa-car-side text-blue-600"></i></h2>
-        <p class="text-gray-500 max-w-2xl mx-auto">Connecting verified drivers with verified car owners. No deposit? Installment? Any car? We allow freedom.</p>
-
-        <div class="grid md:grid-cols-2 gap-8 mt-12 text-left">
-            <!-- DRIVER CARD -->
-            <div class="bg-gradient-to-br from-gray-50 to-white rounded-[2rem] shadow-xl p-8 border border-gray-100 border-t-4 border-t-blue-600">
-                <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-2xl mb-4"><i class="fa-solid fa-id-card"></i></div>
-                <h3 class="font-extrabold text-2xl mb-2">I'm a Driver</h3>
-                <p class="text-gray-600 text-sm mb-6 leading-relaxed">Looking for a car? Type any car you want, choose your deposit, tick if you need installment plan until you complete it.</p>
-                <ul class="text-sm space-y-2 mb-6">
-                    <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Open Car Choice (type any)</li>
-                    <li><i class="fa-solid fa-check text-green-600 mr-2"></i>R0 - Installment Accepted</li>
-                    <li><i class="fa-solid fa-check text-green-600 mr-2"></i>With / Without Permit - Either OK</li>
-                </ul>
-                <button onclick="openPopup('driverForm')" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-full font-bold">JOIN AS DRIVER →</button>
+<!-- E-HAILING -->
+<section id="e-hailing" class="py-16 px-4 bg-white border-t">
+    <div class="max-w-5xl mx-auto text-center">
+        <h2 class="text-3xl font-extrabold">QTP E-HAILING CONNECT</h2>
+        <p class="text-gray-500 text-sm mt-2">Verified drivers + owners - No hidden fees</p>
+        <div class="grid md:grid-cols-2 gap-6 mt-10 text-left">
+            <div class="bg-gray-50 rounded-3xl shadow p-7 border-t-4 border-blue-600">
+                <h3 class="font-extrabold text-xl">I'm a Driver</h3>
+                <p class="text-sm text-gray-600 mt-2 mb-5">Any car, installment option, agreement protected.</p>
+                <button onclick="openPopup('driverForm')" class="w-full bg-blue-600 text-white py-3.5 rounded-full font-bold">JOIN AS DRIVER →</button>
             </div>
-            <!-- OWNER CARD -->
-            <div class="bg-gradient-to-br from-gray-50 to-white rounded-[2rem] shadow-xl p-8 border border-gray-100 border-t-4 border-t-green-600">
-                <div class="w-14 h-14 bg-green-600 rounded-2xl flex items-center justify-center text-white text-2xl mb-4"><i class="fa-solid fa-car"></i></div>
-                <h3 class="font-extrabold text-2xl mb-2">I'm an Owner</h3>
-                <p class="text-gray-600 text-sm mb-6 leading-relaxed">Have a car? List it. Choose your deposit requirement, tick if you accept flexible installments until driver completes deposit.</p>
-                <ul class="text-sm space-y-2 mb-6">
-                    <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Set Your Own Deposit R1000-R2500+</li>
-                    <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Tick to Accept Installment Flexibility</li>
-                    <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Protected by Good Condition Agreement</li>
-                </ul>
-                <button onclick="openPopup('ownerForm')" class="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-4 rounded-full font-bold">LIST MY VEHICLE →</button>
+            <div class="bg-gray-50 rounded-3xl shadow p-7 border-t-4 border-green-600">
+                <h3 class="font-extrabold text-xl">I'm an Owner</h3>
+                <p class="text-sm text-gray-600 mt-2 mb-5">Set deposit, allow installments, protected by condition check.</p>
+                <button onclick="openPopup('ownerForm')" class="w-full bg-green-600 text-white py-3.5 rounded-full font-bold">LIST MY VEHICLE →</button>
             </div>
         </div>
     </div>
 </section>
 
-<!-- DRIVER POPUP FULL -->
-<div id="driverForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white rounded-[1.8rem] max-w-lg w-full p-7 my-8 relative shadow-2xl">
-        <button onclick="closePopup('driverForm')" class="absolute top-5 right-5 w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
-        <h3 class="text-2xl font-extrabold mb-1"><i class="fa-solid fa-car mr-2 text-blue-600"></i>Driver Application</h3>
-        <p class="text-xs text-gray-500 mb-5">All fields marked * required + agreement checkbox</p>
-        <div class="space-y-3">
-            <input id="d_name" type="text" placeholder="Full Name *" class="w-full border-2 border-gray-200 focus:border-blue-600 rounded-full px-5 py-3.5 text-sm outline-none">
-            <input id="d_loc" type="text" placeholder="Your Location * e.g. Milnerton" class="w-full border-2 border-gray-200 focus:border-blue-600 rounded-full px-5 py-3.5 text-sm outline-none">
-            <input id="d_car" type="text" placeholder="Car(s) you want - e.g. Toyota Corolla, Suzuki, ANY" class="w-full border-2 border-gray-200 focus:border-blue-600 rounded-full px-5 py-3.5 text-sm outline-none">
-            <select id="d_deposit" class="w-full border-2 border-gray-200 focus:border-blue-600 rounded-full px-5 py-3.5 text-sm font-bold outline-none"><option value="">Deposit You Have? *</option><option value="R0 - No Deposit">R0 - No Deposit</option><option value="R500">R500</option><option value="R1000">R1000</option><option value="R1500">R1500</option><option value="R2000">R2000</option><option value="R2500+">R2500+</option></select>
-            <label class="flex items-center gap-3 bg-blue-50 border border-blue-200 rounded-full px-5 py-3.5 cursor-pointer">
-                <input type="checkbox" id="d_installment" class="w-5 h-5 accent-blue-600">
-                <span class="text-sm font-bold text-blue-800"><i class="fa-solid fa-hand-holding-dollar mr-1"></i> Pay deposit in installments until complete</span>
-            </label>
-            <div class="grid grid-cols-2 gap-3">
-                <select id="d_parking" class="border-2 border-gray-200 rounded-full px-4 py-3.5 text-sm"><option>Safe Parking - Yes</option><option>Safe Parking - No</option></select>
-                <select id="d_pdp" class="border-2 border-gray-200 rounded-full px-4 py-3.5 text-sm"><option>PDP - Yes</option><option>PDP - No</option><option>Processing PDP</option></select>
+<!-- DRIVER POPUP - FIXED WIDTH & CLOSE BUTTON -->
+<div id="driverForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3">
+    <div class="popup-box bg-white rounded-3xl p-6 relative shadow-2xl">
+        <button onclick="closePopup('driverForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200"><i class="fa-solid fa-xmark text-sm"></i></button>
+        <h3 class="text-xl font-extrabold pr-8">Driver Application</h3>
+        <div class="space-y-3 mt-5">
+            <input id="d_name" type="text" placeholder="Full Name *" class="w-full border rounded-full px-4 py-3 text-sm">
+            <input id="d_loc" type="text" placeholder="Location * e.g. Milnerton" class="w-full border rounded-full px-4 py-3 text-sm">
+            <input id="d_car" type="text" placeholder="Car(s) wanted - e.g. Corolla, ANY" class="w-full border rounded-full px-4 py-3 text-sm">
+            <select id="d_deposit" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">Deposit You Have? *</option><option>R0 - No Deposit</option><option>R500</option><option>R1000</option><option>R1500</option><option>R2000</option><option>R2500+</option></select>
+            <label class="flex items-center gap-2 bg-blue-50 border rounded-full px-4 py-3 cursor-pointer"><input type="checkbox" id="d_installment"><span class="text-xs font-bold">Pay in installments until complete</span></label>
+            <div class="grid grid-cols-2 gap-2"><select id="d_parking" class="border rounded-full px-3 py-3 text-xs"><option>Safe Parking - Yes</option><option>No</option></select><select id="d_pdp" class="border rounded-full px-3 py-3 text-xs"><option>PDP - Yes</option><option>No</option></select></div>
+            <div class="grid grid-cols-2 gap-2"><select id="d_permit" class="border rounded-full px-3 py-3 text-xs"><option>Either - Any Permit</option><option>With Permit</option><option>Without Permit</option></select><select id="d_platform" class="border rounded-full px-3 py-3 text-xs"><option>Uber</option><option>Bolt</option><option>All</option></select></div>
+            <div class="bg-yellow-50 border border-yellow-300 rounded-xl p-3">
+                <label class="flex gap-2 cursor-pointer"><input type="checkbox" id="d_agree" class="w-5 h-5 flex-shrink-0"><span class="text-[11px] leading-[14px]"><b>Agreement *</b> I agree deposit is <b>refundable only if car returned in good shape</b> - no damages/fines.</span></label>
             </div>
-            <div class="grid grid-cols-2 gap-3">
-                <select id="d_permit" class="border-2 border-gray-200 rounded-full px-4 py-3.5 text-sm"><option>Either - I don't mind (Any Permit)</option><option>With Permit - Preferred</option><option>Without Permit - OK</option></select>
-                <select id="d_platform" class="border-2 border-gray-200 rounded-full px-4 py-3.5 text-sm"><option>Uber</option><option>Bolt</option><option>inDrive</option><option>Uber & Bolt</option><option>All Platforms</option></select>
-            </div>
-            <select id="d_plan" class="w-full border-2 border-gray-200 rounded-full px-5 py-3.5 text-sm bg-blue-50 font-bold"><option>Basic Plan - R500</option><option>Premium Plan - R800</option></select>
-
-            <!-- AGREEMENT YOU ASKED - WITH CHECKBOX + NOTE -->
-            <div class="bg-yellow-50 border-2 border-yellow-300 rounded-2xl p-4">
-                <label class="flex gap-3 cursor-pointer">
-                    <input type="checkbox" id="d_agree" class="w-6 h-6 mt-0.5 accent-blue-600 flex-shrink-0">
-                    <span class="text-[12px] leading-[16px] text-gray-700"><b class="text-black">Agreement Note *</b><br>I understand and agree that my deposit is <b class="text-black">refundable only if the car is returned in good shape / same condition</b> as I received it. Any damages, missing parts, traffic fines, or dirty interior will be deducted from deposit. <span class="text-red-600 font-bold">*</span></span>
-                </label>
-            </div>
-
-            <button onclick="submitDriver()" class="w-full bg-blue-600 text-white px-6 py-4 rounded-full font-bold text-base shadow-lg shadow-blue-200"><i class="fa-brands fa-whatsapp mr-2 text-xl"></i> SEND TO WHATSAPP</button>
+            <button onclick="submitDriver()" class="w-full bg-blue-600 text-white py-4 rounded-full font-bold"><i class="fa-brands fa-whatsapp mr-2"></i>SEND TO WHATSAPP</button>
         </div>
     </div>
 </div>
 
-<!-- OWNER POPUP FULL -->
-<div id="ownerForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white rounded-[1.8rem] max-w-lg w-full p-7 my-8 relative shadow-2xl">
-        <button onclick="closePopup('ownerForm')" class="absolute top-5 right-5 w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
-        <h3 class="text-2xl font-extrabold mb-1"><i class="fa-solid fa-car-side mr-2 text-green-600"></i>Owner Listing</h3>
-        <p class="text-xs text-gray-500 mb-5">Protect your car with agreement checkbox</p>
-        <div class="space-y-3">
-            <input id="o_name" type="text" placeholder="Full Name *" class="w-full border-2 border-gray-200 focus:border-green-600 rounded-full px-5 py-3.5 text-sm outline-none">
-            <input id="o_car" type="text" placeholder="Car Model * e.g. Toyota Yaris" class="w-full border-2 border-gray-200 focus:border-green-600 rounded-full px-5 py-3.5 text-sm outline-none">
-            <input id="o_year" type="text" placeholder="Year e.g. 2011" class="w-full border-2 border-gray-200 rounded-full px-5 py-3.5 text-sm">
-            <div class="grid grid-cols-2 gap-3">
-                <select id="o_permit" class="border-2 border-gray-200 rounded-full px-4 py-3.5 text-sm"><option>Has Permit - Yes</option><option>Has Permit - No</option></select>
-                <select id="o_deposit" class="border-2 border-gray-200 rounded-full px-4 py-3.5 text-sm font-bold"><option value="">Deposit Required? *</option><option>R0 - Accept No Deposit</option><option>R1000 Required</option><option>R1500 Required</option><option>R2000 Required</option><option>R2500+ Required</option></select>
+<!-- OWNER POPUP - FIXED WIDTH & CLOSE BUTTON -->
+<div id="ownerForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3">
+    <div class="popup-box bg-white rounded-3xl p-6 relative shadow-2xl">
+        <button onclick="closePopup('ownerForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200"><i class="fa-solid fa-xmark text-sm"></i></button>
+        <h3 class="text-xl font-extrabold pr-8">Owner Listing</h3>
+        <div class="space-y-3 mt-5">
+            <input id="o_name" type="text" placeholder="Full Name *" class="w-full border rounded-full px-4 py-3 text-sm">
+            <input id="o_car" type="text" placeholder="Car Model *" class="w-full border rounded-full px-4 py-3 text-sm">
+            <input id="o_year" type="text" placeholder="Year" class="w-full border rounded-full px-4 py-3 text-sm">
+            <div class="grid grid-cols-2 gap-2"><select id="o_permit" class="border rounded-full px-3 py-3 text-xs"><option>Has Permit - Yes</option><option>No</option></select><select id="o_deposit" class="border rounded-full px-3 py-3 text-xs font-bold"><option>R1000 Required</option><option>R1500</option><option>R2000</option><option>R0 - No Deposit</option></select></div>
+            <label class="flex items-center gap-2 bg-green-50 border rounded-full px-4 py-3 cursor-pointer"><input type="checkbox" id="o_installment" checked><span class="text-xs font-bold">Accept flexible installments</span></label>
+            <div class="grid grid-cols-2 gap-2"><select id="o_parking" class="border rounded-full px-3 py-3 text-xs"><option>Must Have Parking</option><option>Not Required</option></select><input id="o_target" type="number" placeholder="Target R" class="border rounded-full px-3 py-3 text-xs"></div>
+            <input id="o_loc" type="text" placeholder="Location * e.g. Parklands" class="w-full border rounded-full px-4 py-3 text-sm">
+            <div class="bg-yellow-50 border border-yellow-300 rounded-xl p-3">
+                <label class="flex gap-2 cursor-pointer"><input type="checkbox" id="o_agree" class="w-5 h-5 flex-shrink-0"><span class="text-[11px] leading-[14px]"><b>Agreement *</b> I agree deposit is <b>refundable only if car returned in good shape</b> - I will check damages/fines.</span></label>
             </div>
-            <label class="flex items-center gap-3 bg-green-50 border border-green-300 rounded-full px-5 py-3.5 cursor-pointer">
-                <input type="checkbox" id="o_installment" checked class="w-5 h-5 accent-green-600">
-                <span class="text-sm font-bold text-green-800"><i class="fa-solid fa-handshake mr-1"></i> Accept flexible installments until complete</span>
-            </label>
-            <div class="grid grid-cols-2 gap-3">
-                <select id="o_parking" class="border-2 border-gray-200 rounded-full px-4 py-3.5 text-sm"><option>Must Have Safe Parking</option><option>Parking Not Required</option></select>
-                <input id="o_target" type="number" placeholder="Weekly Target R e.g. 2000" class="border-2 border-gray-200 rounded-full px-4 py-3.5 text-sm">
-            </div>
-            <input id="o_loc" type="text" placeholder="Your Location * e.g. Parklands" class="w-full border-2 border-gray-200 rounded-full px-5 py-3.5 text-sm">
-
-            <!-- AGREEMENT YOU ASKED - WITH CHECKBOX + NOTE -->
-            <div class="bg-yellow-50 border-2 border-yellow-300 rounded-2xl p-4">
-                <label class="flex gap-3 cursor-pointer">
-                    <input type="checkbox" id="o_agree" class="w-6 h-6 mt-0.5 accent-green-600 flex-shrink-0">
-                    <span class="text-[12px] leading-[16px] text-gray-700"><b class="text-black">Agreement Note *</b><br>I agree that driver deposit is <b class="text-black">refundable only if my car is returned in good shape / same condition</b> as given. I will inspect car for damages, fines, fuel level before refunding. <span class="text-red-600 font-bold">*</span></span>
-                </label>
-            </div>
-
-            <button onclick="submitOwner()" class="w-full bg-green-600 text-white px-6 py-4 rounded-full font-bold text-base shadow-lg shadow-green-200"><i class="fa-brands fa-whatsapp mr-2 text-xl"></i> SEND TO WHATSAPP</button>
+            <button onclick="submitOwner()" class="w-full bg-green-600 text-white py-4 rounded-full font-bold"><i class="fa-brands fa-whatsapp mr-2"></i>SEND TO WHATSAPP</button>
         </div>
     </div>
 </div>
 
-<footer class="py-8 text-center bg-gray-900 text-gray-400 text-sm">
-    <img src="1787084320805.png" class="w-12 h-12 rounded-full mx-auto mb-3 border-2 border-blue-600">
-    &copy; 2026 QTP DAILY GIGS - All Rights Reserved<br>WhatsApp: 0837327440 | Cape Town
-</footer>
-
+<footer class="py-6 text-center bg-gray-900 text-gray-400 text-xs">&copy; 2026 QTP DAILY GIGS - 0837327440</footer>
 </body>
-         </html>
+                                                                                                                                                                                     </html>
