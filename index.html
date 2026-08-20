@@ -11,12 +11,6 @@ body{font-family:Inter,sans-serif;overflow-x:hidden}
 .popup-box{max-width:92%;width:500px;max-height:90vh;overflow-y:auto}
 .pulse{animation:pulse 2s infinite}
 @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
-.hero-city{
-background-image: linear-gradient(rgba(42,91,215,0.78), rgba(42,91,215,0.88)), url('https://images.unsplash.com/photo-1580060868588-e0ab3112a99f?w=1400&h=700&fit=crop&q=80');
-background-size:cover;
-background-position:center 30%;
-background-repeat:no-repeat;
-}
 </style>
 <script>
 function filterSites(c,el){
@@ -56,13 +50,14 @@ function submitOwner(){
 </div>
 </header>
 
-<section class="hero-city text-white py-16 px-6 text-center">
+<!-- CITY BACKGROUND - INLINE SO VERCEL CAN'T HIDE IT -->
+<section class="text-white py-16 px-6 text-center" style="background: linear-gradient(rgba(42,91,215,0.85), rgba(42,91,215,0.85)), url('https://images.unsplash.com/photo-1580060868588-e0ab3112a99f?w=1400&q=80'); background-size:cover; background-position:center;">
 <div class="max-w-3xl mx-auto">
-<h1 class="text-[34px] md:text-5xl font-extrabold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">Find Daily Gigs<br>In Cape Town</h1>
-<p class="mt-3 text-white font-bold text-[15px] drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">Retail • Domestic • Drivers • Ehailing • Table Mountain City</p>
+<h1 class="text-[34px] md:text-5xl font-extrabold">Find Daily Gigs<br>In Cape Town</h1>
+<p class="mt-3 text-blue-100 text-[15px]">Retail • Domestic • Drivers • Ehailing</p>
 <div class="mt-6 flex justify-center gap-3">
-<a href="#jobs" class="bg-white text-[#2a5bd7] px-6 py-3 rounded-full font-bold text-sm shadow-xl">Browse Jobs</a>
-<a href="#ehailing" class="bg-yellow-400 text-black px-6 py-3 rounded-full font-extrabold text-sm pulse shadow-xl"><i class="fa-solid fa-car-side mr-2"></i>EHAILING CONNECT</a>
+<a href="#jobs" class="bg-white text-[#2a5bd7] px-6 py-3 rounded-full font-bold text-sm">Browse Jobs</a>
+<a href="#ehailing" class="bg-yellow-400 text-black px-6 py-3 rounded-full font-extrabold text-sm pulse"><i class="fa-solid fa-car-side mr-2"></i>EHAILING CONNECT</a>
 </div>
 </div>
 </section>
@@ -123,7 +118,6 @@ function submitOwner(){
 <div class="bg-white rounded-[1.5rem] p-2 border-4 border-yellow-400 shadow-xl">
 <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?w=600&h=300&fit=crop" class="w-full h-36 object-cover rounded-xl">
 <div class="p-4">
-<div class="flex gap-2"><span class="bg-black text-white text-[10px] px-2 py-1 rounded-full font-bold">COROLLA / YARIS</span><span class="bg-yellow-400 text-black text-[10px] px-2 py-1 rounded-full font-bold"><i class="fa-solid fa-car mr-1"></i>EHAILING KING</span></div>
 <h3 class="font-extrabold text-lg mt-2">I'm a Driver</h3>
 <p class="text-xs text-gray-600">Match to Uber X/Go/Black, Bolt, inDriver</p>
 <button onclick="openPopup('driverForm')" class="mt-4 w-full bg-black text-white py-3 rounded-full font-bold text-sm"><i class="fa-solid fa-car mr-2"></i>JOIN AS DRIVER →</button>
@@ -132,7 +126,6 @@ function submitOwner(){
 <div class="bg-yellow-400 rounded-[1.5rem] p-2 border-4 border-white shadow-xl">
 <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=300&fit=crop" class="w-full h-36 object-cover rounded-xl">
 <div class="p-4">
-<div class="flex gap-2"><span class="bg-black text-yellow-400 text-[10px] px-2 py-1 rounded-full font-bold">SWIFT / STARLET</span><span class="bg-white text-[10px] px-2 py-1 rounded-full font-bold">BOLT LITE READY</span></div>
 <h3 class="font-extrabold text-lg mt-2">I'm an Owner</h3>
 <p class="text-xs text-black/70">List for all platforms inc Black</p>
 <button onclick="openPopup('ownerForm')" class="mt-4 w-full bg-black text-yellow-400 py-3 rounded-full font-bold text-sm"><i class="fa-solid fa-key mr-2"></i>LIST MY VEHICLE →</button>
@@ -143,62 +136,9 @@ function submitOwner(){
 </div>
 </section>
 
-<div id="driverForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3">
-<div class="popup-box bg-white rounded-3xl p-6 relative">
-<button onclick="closePopup('driverForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full"><i class="fa-solid fa-xmark"></i></button>
-<h3 class="text-xl font-extrabold"><i class="fa-solid fa-car mr-2"></i>Driver - Platforms</h3>
-<div class="space-y-3 mt-5">
-<input id="d_name" placeholder="Full Name *" class="w-full border rounded-full px-4 py-3 text-sm">
-<input id="d_loc" placeholder="Location *" class="w-full border rounded-full px-4 py-3 text-sm">
-<input id="d_car" placeholder="Car wanted - Corolla, Yaris, ANY" class="w-full border rounded-full px-4 py-3 text-sm">
-<select id="d_deposit_choice" onchange="toggleCustom('d')" class="w-full border-2 border-blue-200 rounded-full px-4 py-3 text-sm font-bold"><option value="">Deposit You Have? *</option><option>R0 - No Deposit</option><option>R500</option><option>R1000</option><option>R1500</option><option>R2000</option><option>R2500+</option><option value="Custom">✏️ Custom</option></select>
-<div id="d_custom_wrap" style="display:none"><input id="d_deposit_custom" placeholder="Custom e.g. R750" class="w-full border-2 border-yellow-400 bg-yellow-50 rounded-full px-4 py-3 text-sm font-bold"></div>
-<div class="border rounded-2xl p-3">
-<p class="text-xs font-extrabold mb-2">Select Platforms You Drive *</p>
-<div class="grid grid-cols-2 gap-2 text-xs">
-<label class="bg-black text-white rounded-full px-3 py-2 flex gap-2"><input type="checkbox" class="d_plat" value="UberX"> UberX</label>
-<label class="bg-black text-white rounded-full px-3 py-2 flex gap-2"><input type="checkbox" class="d_plat" value="Uber Go"> Uber Go</label>
-<label class="bg-yellow-400 text-black border-2 border-black rounded-full px-3 py-2 flex gap-2 font-bold"><input type="checkbox" class="d_plat" value="Uber Black"> Uber Black 👑</label>
-<label class="bg-gray-100 rounded-full px-3 py-2 flex gap-2"><input type="checkbox" class="d_plat" value="UberXL"> UberXL</label>
-<label class="bg-[#2EB875] text-white rounded-full px-3 py-2 flex gap-2"><input type="checkbox" class="d_plat" value="Bolt"> Bolt</label>
-<label class="bg-[#2EB875]/20 rounded-full px-3 py-2 flex gap-2"><input type="checkbox" class="d_plat" value="Bolt Lite"> Bolt Lite</label>
-<label class="bg-[#00C853] text-white rounded-full px-3 py-2 flex gap-2"><input type="checkbox" class="d_plat" value="inDriver"> inDriver</label>
-<label class="bg-[#00C853]/20 rounded-full px-3 py-2 flex gap-2"><input type="checkbox" class="d_plat" value="Comfort"> Comfort</label>
-</div>
-</div>
-<div class="bg-yellow-50 border border-yellow-300 rounded-xl p-3"><label class="flex gap-2"><input type="checkbox" id="d_agree" class="w-5 h-5"><span class="text-[11px]"><b>Agreement *</b> Depost Refundable only if good shape</span></label></div>
-<button onclick="submitDriver()" class="w-full bg-black text-white py-4 rounded-full font-bold"><i class="fa-brands fa-whatsapp mr-2"></i>SEND WHATSAPP</button>
-</div>
-</div>
-</div>
+<div id="driverForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3"><div class="popup-box bg-white rounded-3xl p-6 relative"><button onclick="closePopup('driverForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full"><i class="fa-solid fa-xmark"></i></button><h3 class="text-xl font-extrabold"><i class="fa-solid fa-car mr-2"></i>Driver</h3><div class="space-y-3 mt-5"><input id="d_name" placeholder="Full Name *" class="w-full border rounded-full px-4 py-3 text-sm"><input id="d_loc" placeholder="Location *" class="w-full border rounded-full px-4 py-3 text-sm"><input id="d_car" placeholder="Car wanted" class="w-full border rounded-full px-4 py-3 text-sm"><select id="d_deposit_choice" onchange="toggleCustom('d')" class="w-full border-2 border-blue-200 rounded-full px-4 py-3 text-sm font-bold"><option value="">Deposit You Have? *</option><option>R0 - No Deposit</option><option>R500</option><option>R1000</option><option>R1500</option><option>R2000</option><option>R2500+</option><option value="Custom">✏️ Custom</option></select><div id="d_custom_wrap" style="display:none"><input id="d_deposit_custom" placeholder="Custom" class="w-full border-2 border-yellow-400 bg-yellow-50 rounded-full px-4 py-3 text-sm font-bold"></div><div class="bg-yellow-50 border border-yellow-300 rounded-xl p-3"><label class="flex gap-2"><input type="checkbox" id="d_agree" class="w-5 h-5"><span class="text-[11px]"><b>Agreement *</b> Refundable only if good shape</span></label></div><button onclick="submitDriver()" class="w-full bg-black text-white py-4 rounded-full font-bold">SEND WHATSAPP</button></div></div></div>
+<div id="ownerForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3"><div class="popup-box bg-white rounded-3xl p-6 relative"><button onclick="closePopup('ownerForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full"><i class="fa-solid fa-xmark"></i></button><h3 class="text-xl font-extrabold"><i class="fa-solid fa-car-side mr-2"></i>Owner</h3><div class="space-y-3 mt-5"><input id="o_name" placeholder="Full Name *" class="w-full border rounded-full px-4 py-3 text-sm"><input id="o_car" placeholder="Car Model *" class="w-full border rounded-full px-4 py-3 text-sm"><select id="o_deposit_choice" onchange="toggleCustom('o')" class="w-full border-2 border-green-200 rounded-full px-4 py-3 text-sm font-bold"><option value="">Deposit Accept? *</option><option>R0 - No Deposit</option><option>R1000</option><option>R1500</option><option>R2000</option><option>R2500+</option><option value="Custom">✏️ Custom</option></select><div id="o_custom_wrap" style="display:none"><input id="o_deposit_custom" placeholder="Custom" class="w-full border-2 border-yellow-400 bg-yellow-50 rounded-full px-4 py-3 text-sm font-bold"></div><input id="o_loc" placeholder="Location *" class="w-full border rounded-full px-4 py-3 text-sm"><div class="bg-yellow-50 border border-yellow-300 rounded-xl p-3"><label class="flex gap-2"><input type="checkbox" id="o_agree" class="w-5 h-5"><span class="text-[11px]"><b>Agreement *</b> Deposit Refundable only if good shape</span></label></div><button onclick="submitOwner()" class="w-full bg-yellow-400 text-black py-4 rounded-full font-extrabold">SEND WHATSAPP</button></div></div></div>
 
-<div id="ownerForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3">
-<div class="popup-box bg-white rounded-3xl p-6 relative">
-<button onclick="closePopup('ownerForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full"><i class="fa-solid fa-xmark"></i></button>
-<h3 class="text-xl font-extrabold"><i class="fa-solid fa-car-side mr-2"></i>Owner - Platforms</h3>
-<div class="space-y-3 mt-5">
-<input id="o_name" placeholder="Full Name *" class="w-full border rounded-full px-4 py-3 text-sm">
-<input id="o_car" placeholder="Car Model * e.g. Corolla Prestige for Black" class="w-full border rounded-full px-4 py-3 text-sm">
-<select id="o_deposit_choice" onchange="toggleCustom('o')" class="w-full border-2 border-green-200 rounded-full px-4 py-3 text-sm font-bold"><option value="">Deposit Accept? *</option><option>R0 - No Deposit</option><option>R1000</option><option>R1500</option><option>R2000</option><option>R2500+</option><option value="Custom">✏️ Custom</option></select>
-<div id="o_custom_wrap" style="display:none"><input id="o_deposit_custom" placeholder="Custom e.g. R800" class="w-full border-2 border-yellow-400 bg-yellow-50 rounded-full px-4 py-3 text-sm font-bold"></div>
-<input id="o_loc" placeholder="Location *" class="w-full border rounded-full px-4 py-3 text-sm">
-<div class="border rounded-2xl p-3">
-<p class="text-xs font-extrabold mb-2">Which Platforms Your Car Qualifies For *</p>
-<div class="grid grid-cols-2 gap-2 text-xs">
-<label class="bg-black text-white rounded-full px-3 py-2 flex gap-2"><input type="checkbox" class="o_plat" value="UberX"> UberX</label>
-<label class="bg-black text-white rounded-full px-3 py-2 flex gap-2"><input type="checkbox" class="o_plat" value="Uber Go"> Uber Go</label>
-<label class="bg-yellow-400 text-black border-2 border-black rounded-full px-3 py-2 flex gap-2 font-bold"><input type="checkbox" class="o_plat" value="Uber Black"> Uber Black 👑</label>
-<label class="bg-gray-100 rounded-full px-3 py-2 flex gap-2"><input type="checkbox" class="o_plat" value="UberXL"> UberXL</label>
-<label class="bg-[#2EB875] text-white rounded-full px-3 py-2 flex gap-2"><input type="checkbox" class="o_plat" value="Bolt"> Bolt</label>
-<label class="bg-[#00C853] text-white rounded-full px-3 py-2 flex gap-2"><input type="checkbox" class="o_plat" value="inDriver"> inDriver</label>
-</div>
-</div>
-<div class="bg-yellow-50 border border-yellow-300 rounded-xl p-3"><label class="flex gap-2"><input type="checkbox" id="o_agree" class="w-5 h-5"><span class="text-[11px]"><b>Agreement *</b> Deposit Refundable only if good shape</span></label></div>
-<button onclick="submitOwner()" class="w-full bg-yellow-400 text-black py-4 rounded-full font-extrabold"><i class="fa-brands fa-whatsapp mr-2"></i>SEND WHATSAPP</button>
-</div>
-</div>
-</div>
-
-<footer class="py-6 text-center bg-gray-900 text-gray-400 text-xs">&copy; 2026 QTP DAILY GIGS - TABLE MOUNTAIN CITY 👑</footer>
+<footer class="py-6 text-center bg-gray-900 text-gray-400 text-xs">&copy; 2026 QTP DAILY GIGS</footer>
 </body>
-</html>
+ </html>
