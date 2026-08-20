@@ -43,28 +43,29 @@ function submitOwner(){
 </head>
 <body class="bg-gray-50">
 
-<header class="sticky top-0 bg-white shadow-sm z-50 border-b">
-<div class="max-w-7xl mx-auto px-4 h-[60px] flex justify-between items-center">
-<a class="flex gap-2 font-extrabold text-[18px] items-center"><img src="1787084320805.png" class="w-9 h-9 rounded-full border-2 border-blue-600">QTP <span class="text-blue-600">DAILY GIGS</span></a>
-<nav><a href="#ehailing" class="bg-yellow-400 text-black px-4 py-2 rounded-full text-xs font-extrabold pulse"><i class="fa-solid fa-car mr-1"></i> EHAILING CONNECT 🔥</a></nav>
+<!-- HEADER WITH CAPE TOWN CITY SKYLINE BACKGROUND -->
+<header class="sticky top-0 z-50 border-b border-blue-500/30 shadow-md" style="background: linear-gradient(rgba(15, 23, 42, 0.88), rgba(30, 58, 138, 0.88)), url('https://images.unsplash.com/photo-1580060868588-e0ab3112a99f?w=1400&q=80'); background-size: cover; background-position: center;">
+<div class="max-w-7xl mx-auto px-4 h-[65px] flex justify-between items-center text-white">
+<a class="flex gap-2 font-extrabold text-[18px] items-center"><img src="1787084320805.png" class="w-9 h-9 rounded-full border-2 border-yellow-400 shadow">QTP <span class="text-yellow-400">DAILY GIGS</span></a>
+<nav><a href="#ehailing" class="bg-gradient-to-r from-yellow-400 to-amber-500 text-black px-4 py-2 rounded-full text-xs font-extrabold shadow-lg pulse"><i class="fa-solid fa-car mr-1"></i> EHAILING CONNECT 🔥</a></nav>
 </div>
 </header>
 
-<!-- CITY BACKGROUND - INLINE SO VERCEL CAN'T HIDE IT -->
-<section class="text-white py-16 px-6 text-center" style="background: linear-gradient(rgba(42,91,215,0.85), rgba(42,91,215,0.85)), url('https://images.unsplash.com/photo-1580060868588-e0ab3112a99f?w=1400&q=80'); background-size:cover; background-position:center;">
+<!-- HERO SECTION WITH CITY BACKGROUND -->
+<section class="text-white py-16 px-6 text-center" style="background: linear-gradient(rgba(30,58,138,0.88), rgba(15,23,42,0.92)), url('https://images.unsplash.com/photo-1580060868588-e0ab3112a99f?w=1400&q=80'); background-size:cover; background-position:center;">
 <div class="max-w-3xl mx-auto">
-<h1 class="text-[34px] md:text-5xl font-extrabold">Find Daily Gigs<br>In Cape Town</h1>
-<p class="mt-3 text-blue-100 text-[15px]">Retail • Domestic • Drivers • Ehailing</p>
+<h1 class="text-[34px] md:text-5xl font-extrabold tracking-tight">Find Daily Gigs<br><span class="text-yellow-400">In Cape Town</span></h1>
+<p class="mt-3 text-blue-200 text-[15px] font-medium">Retail • Domestic • Drivers • Ehailing</p>
 <div class="mt-6 flex justify-center gap-3">
-<a href="#jobs" class="bg-white text-[#2a5bd7] px-6 py-3 rounded-full font-bold text-sm">Browse Jobs</a>
-<a href="#ehailing" class="bg-yellow-400 text-black px-6 py-3 rounded-full font-extrabold text-sm pulse"><i class="fa-solid fa-car-side mr-2"></i>EHAILING CONNECT</a>
+<a href="#jobs" class="bg-yellow-400 text-black px-6 py-3 rounded-full font-bold text-sm shadow hover:bg-yellow-300 transition">Browse Jobs</a>
+<a href="#ehailing" class="bg-blue-600 text-white border border-blue-400 px-6 py-3 rounded-full font-extrabold text-sm shadow-lg pulse"><i class="fa-solid fa-car-side mr-2"></i>EHAILING CONNECT</a>
 </div>
 </div>
 </section>
 
 <section id="jobs" class="py-8 px-4 max-w-7xl mx-auto">
 <div class="flex flex-wrap gap-2 justify-center mb-6">
-<button onclick="filterSites('all',this)" class="filter-btn bg-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-bold">All</button>
+<button onclick="filterSites('all',this)" class="filter-btn bg-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-sm">All</button>
 <button onclick="filterSites('retail',this)" class="filter-btn bg-white border px-5 py-2.5 rounded-full text-sm font-bold">Retail</button>
 <button onclick="filterSites('domestic',this)" class="filter-btn bg-white border px-5 py-2.5 rounded-full text-sm font-bold">Domestic</button>
 <button onclick="filterSites('driver',this)" class="filter-btn bg-white border px-5 py-2.5 rounded-full text-sm font-bold">Driver</button>
@@ -141,4 +142,4 @@ function submitOwner(){
 
 <footer class="py-6 text-center bg-gray-900 text-gray-400 text-xs">&copy; 2026 QTP DAILY GIGS</footer>
 </body>
- </html>
+</html>
