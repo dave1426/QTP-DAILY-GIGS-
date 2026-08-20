@@ -11,7 +11,12 @@ body{font-family:Inter,sans-serif;overflow-x:hidden}
 .popup-box{max-width:92%;width:500px;max-height:90vh;overflow-y:auto}
 .pulse{animation:pulse 2s infinite}
 @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
-.hero-city{background:linear-gradient(rgba(42,91,215,0.88),rgba(42,91,215,0.92)), url('https://images.unsplash.com/photo-1580060868588-e0ab3112a99f?w=1200&h=650&fit=crop&q=80');background-size:cover;background-position:center;}
+.hero-city{
+background-image: linear-gradient(rgba(42,91,215,0.70), rgba(42,91,215,0.80)), url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1400&h=700&fit=crop&q=80');
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
 </style>
 <script>
 function filterSites(c,el){
@@ -51,13 +56,13 @@ function submitOwner(){
 </div>
 </header>
 
-<section class="hero-city text-white py-14 px-6 text-center">
+<section class="hero-city text-white py-16 px-6 text-center">
 <div class="max-w-3xl mx-auto">
-<h1 class="text-[34px] md:text-5xl font-extrabold drop-shadow-lg">Find Daily Gigs<br>In Cape Town</h1>
-<p class="mt-3 text-blue-100 text-[15px] drop-shadow">Retail • Domestic • Drivers • Ehailing</p>
+<h1 class="text-[34px] md:text-5xl font-extrabold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">Find Daily Gigs<br>In Cape Town</h1>
+<p class="mt-3 text-white font-bold text-[15px] drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">Retail • Domestic • Drivers • Ehailing • Cape Town City</p>
 <div class="mt-6 flex justify-center gap-3">
-<a href="#jobs" class="bg-white text-[#2a5bd7] px-6 py-3 rounded-full font-bold text-sm shadow">Browse Jobs</a>
-<a href="#ehailing" class="bg-yellow-400 text-black px-6 py-3 rounded-full font-extrabold text-sm pulse shadow"><i class="fa-solid fa-car-side mr-2"></i>EHAILING CONNECT</a>
+<a href="#jobs" class="bg-white text-[#2a5bd7] px-6 py-3 rounded-full font-bold text-sm shadow-xl">Browse Jobs</a>
+<a href="#ehailing" class="bg-yellow-400 text-black px-6 py-3 rounded-full font-extrabold text-sm pulse shadow-xl"><i class="fa-solid fa-car-side mr-2"></i>EHAILING CONNECT</a>
 </div>
 </div>
 </section>
@@ -76,57 +81,44 @@ function submitOwner(){
 </div>
 </section>
 
-<!-- EHAILING CONNECT - PLATFORMS MATCHED -->
 <section id="ehailing" class="mt-10">
 <div class="bg-black border-y-[6px] border-yellow-400">
 <div class="max-w-6xl mx-auto px-4 py-12">
-
 <div class="text-center">
 <span class="bg-yellow-400 text-black px-4 py-1.5 rounded-full text-[11px] font-extrabold pulse"><i class="fa-solid fa-fire mr-1"></i> HOTTEST IN CAPE TOWN • 200+ MATCHED</span>
 <h2 class="text-4xl md:text-5xl font-extrabold mt-4 text-white">EHAlLING<br><span class="text-yellow-400">CONNECT</span></h2>
-<p class="text-gray-300 mt-3 text-sm">Matched to real platforms - Uber, Bolt, inDriver</p>
+<p class="text-gray-300 mt-3 text-sm">Matched to real platforms - Uber, Bolt, inDriver + Black</p>
 </div>
-
-<!-- PLATFORM CATEGORIES - REAL ONES -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-
-<!-- UBER -->
 <div class="bg-white rounded-2xl p-4 border-2 border-black">
 <div class="flex items-center gap-2"><span class="bg-black text-white px-3 py-1 rounded-full text-xs font-extrabold"><i class="fa-brands fa-uber mr-1"></i> UBER</span><span class="text-[10px] bg-gray-100 px-2 py-1 rounded-full font-bold">5 CATEGORIES</span></div>
 <div class="mt-3 space-y-1.5">
 <div class="flex justify-between bg-gray-50 rounded-full px-3 py-2 text-xs"><span class="font-bold">UberX</span><span class="text-gray-500">Corolla, Yaris, Swift</span></div>
-<div class="flex justify-between bg-gray-50 rounded-full px-3 py-2 text-xs"><span class="font-bold">Uber Go</span><span class="text-gray-500">Starlet, Swift, Picanto</span></div>
-<div class="flex justify-between bg-gray-50 rounded-full px-3 py-2 text-xs"><span class="font-bold">UberXL</span><span class="text-gray-500">Ertiga, Avanza, Lodgy</span></div>
-<div class="flex justify-between bg-yellow-100 border border-yellow-400 rounded-full px-3 py-2 text-xs font-extrabold"><span>Uber Black <i class="fa-solid fa-crown ml-1 text-yellow-600"></i></span><span class="text-[10px]">Corolla Prestige+</span></div>
-<div class="flex justify-between bg-gray-50 rounded-full px-3 py-2 text-xs"><span class="font-bold">Comfort</span><span class="text-gray-500">Higher rated drivers</span></div>
+<div class="flex justify-between bg-gray-50 rounded-full px-3 py-2 text-xs"><span class="font-bold">Uber Go</span><span class="text-gray-500">Starlet, Swift</span></div>
+<div class="flex justify-between bg-gray-50 rounded-full px-3 py-2 text-xs"><span class="font-bold">UberXL</span><span class="text-gray-500">Ertiga, Avanza</span></div>
+<div class="flex justify-between bg-yellow-100 border border-yellow-400 rounded-full px-3 py-2 text-xs font-extrabold"><span>Uber Black <i class="fa-solid fa-crown ml-1 text-yellow-600"></i></span><span class="text-[10px]">Prestige+</span></div>
+<div class="flex justify-between bg-gray-50 rounded-full px-3 py-2 text-xs"><span class="font-bold">Comfort</span><span class="text-gray-500">Higher rated</span></div>
 </div>
 </div>
-
-<!-- BOLT -->
 <div class="bg-[#2EB875] rounded-2xl p-4 border-2 border-black">
 <div class="flex items-center gap-2"><span class="bg-black text-white px-3 py-1 rounded-full text-xs font-extrabold">BOLT</span><span class="text-[10px] bg-white/90 px-2 py-1 rounded-full font-bold">4 CATEGORIES</span></div>
 <div class="mt-3 space-y-1.5">
-<div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">Bolt</span><span class="text-gray-500">Yaris, Swift, i20</span></div>
-<div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">Bolt Lite</span><span class="text-gray-500">Go, Starlet, Small</span></div>
-<div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">Bolt XL</span><span class="text-gray-500">Ertiga, XL cars</span></div>
-<div class="flex justify-between bg-black text-white rounded-full px-3 py-2 text-xs font-bold"><span>Premium</span><span class="text-yellow-400 text-[10px]">Black equivalent</span></div>
+<div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">Bolt</span><span class="text-gray-500">Yaris, Swift</span></div>
+<div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">Bolt Lite</span><span class="text-gray-500">Go, Starlet</span></div>
+<div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">Bolt XL</span><span class="text-gray-500">Ertiga, XL</span></div>
+<div class="flex justify-between bg-black text-white rounded-full px-3 py-2 text-xs font-bold"><span>Premium</span><span class="text-yellow-400 text-[10px]">Black equiv</span></div>
 </div>
 </div>
-
-<!-- inDRIVER -->
 <div class="bg-[#00C853] rounded-2xl p-4 border-2 border-black">
-<div class="flex items-center gap-2"><span class="bg-white text-black px-3 py-1 rounded-full text-xs font-extrabold">inDRIVER</span><span class="text-[10px] bg-black text-white px-2 py-1 rounded-full font-bold">NEGOTIATE FARE</span></div>
+<div class="flex items-center gap-2"><span class="bg-white text-black px-3 py-1 rounded-full text-xs font-extrabold">inDRIVER</span><span class="text-[10px] bg-black text-white px-2 py-1 rounded-full font-bold">NEGOTIATE</span></div>
 <div class="mt-3 space-y-1.5">
 <div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">Economy</span><span class="text-gray-500">Any ehailing car</span></div>
-<div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">Comfort</span><span class="text-gray-500">Yaris, Corolla clean</span></div>
+<div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">Comfort</span><span class="text-gray-500">Yaris, Corolla</span></div>
 <div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">XL / Minivan</span><span class="text-gray-500">Ertiga, Avanza</span></div>
 <div class="flex justify-between bg-yellow-300 border border-black rounded-full px-3 py-2 text-xs font-extrabold"><span>Business <i class="fa-solid fa-briefcase ml-1"></i></span><span class="text-[10px]">Black cars</span></div>
 </div>
 </div>
-
 </div>
-
-<!-- REAL CARS -->
 <div class="grid md:grid-cols-2 gap-6 mt-8">
 <div class="bg-white rounded-[1.5rem] p-2 border-4 border-yellow-400 shadow-xl">
 <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?w=600&h=300&fit=crop" class="w-full h-36 object-cover rounded-xl">
@@ -147,12 +139,10 @@ function submitOwner(){
 </div>
 </div>
 </div>
-
 </div>
 </div>
 </section>
 
-<!-- POPUPS WITH PLATFORM CHECKBOXES -->
 <div id="driverForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3">
 <div class="popup-box bg-white rounded-3xl p-6 relative">
 <button onclick="closePopup('driverForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full"><i class="fa-solid fa-xmark"></i></button>
@@ -209,6 +199,6 @@ function submitOwner(){
 </div>
 </div>
 
-<footer class="py-6 text-center bg-gray-900 text-gray-400 text-xs">&copy; 2026 QTP DAILY GIGS - UBER • BOLT • INDRIVER + BLACK 👑 CITY HERO</footer>
+<footer class="py-6 text-center bg-gray-900 text-gray-400 text-xs">&copy; 2026 QTP DAILY GIGS - CITY VISIBLE NOW 👑</footer>
 </body>
  </html>
