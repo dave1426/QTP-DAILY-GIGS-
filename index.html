@@ -32,12 +32,14 @@ function submitDriver(){
  let dep=ch==='Custom'?document.getElementById('d_deposit_custom').value.trim():ch;
  let licType=document.getElementById('d_license_type').value;
  let criminal=document.getElementById('d_criminal').value;
+ let profile=document.getElementById('d_profile').value;
  if(!document.getElementById('d_name').value.trim()||!document.getElementById('d_loc').value.trim()||!dep){alert('Fill Name, Location, Deposit');return;}
- if(!licType){alert('Select License Type (SA or Non-SA)');return;}
- if(!criminal){alert('Select Criminal Background status');return;}
+ if(!licType){alert('Select License Type');return;}
+ if(!criminal){alert('Select Criminal status');return;}
+ if(!profile){alert('Select Ehailing Profile status');return;}
  if(!document.getElementById('d_agree').checked){alert('Tick agreement');return;}
  let plats=[...document.querySelectorAll('.d_plat:checked')].map(e=>e.value).join(', ')||'Not selected';
- const msg=`*DRIVER - EHAlLING CONNECT*%0AName:${document.getElementById('d_name').value}%0ALoc:${document.getElementById('d_loc').value}%0ACar:${document.getElementById('d_car').value||'Any'}%0ADeposit:${dep}%0ALicense Type:${licType}%0ACriminal Check:${criminal}%0APlatforms:${plats}%0A✅ Agreed good shape`;
+ const msg=`*DRIVER - EHAlLING CONNECT*%0AName:${document.getElementById('d_name').value}%0ALoc:${document.getElementById('d_loc').value}%0ACar:${document.getElementById('d_car').value||'Any'}%0ADeposit:${dep}%0ALicense:${licType}%0ACriminal:${criminal}%0AProfile:${profile}%0APlatforms:${plats}%0A✅ Agreed good shape`;
  window.open(`https://wa.me/27837327440?text=${msg}`,'_blank');closePopup('driverForm');
 }
 function submitOwner(){
@@ -56,14 +58,12 @@ function submitOwner(){
 </script>
 </head>
 <body class="bg-gray-50">
-
 <header class="sticky top-0 z-50 border-b border-blue-900 shadow-md bg-slate-900">
 <div class="max-w-7xl mx-auto px-4 h-[65px] flex justify-between items-center text-white">
 <a class="flex gap-2 font-extrabold text-[18px] items-center"><img src="1787084320805.png" class="w-9 h-9 rounded-full border-2 border-yellow-400 shadow">QTP <span class="text-yellow-400">DAILY GIGS</span></a>
 <nav><a href="#ehailing" class="bg-gradient-to-r from-yellow-400 to-amber-500 text-black px-4 py-2 rounded-full text-xs font-extrabold shadow-lg pulse"><i class="fa-solid fa-car mr-1"></i> EHAILING CONNECT 🔥</a></nav>
 </div>
 </header>
-
 <section class="text-white py-16 px-6 text-center bg-slate-900">
 <div class="max-w-3xl mx-auto">
 <h1 class="text-[34px] md:text-5xl font-extrabold tracking-tight drop-shadow-md">Find Daily Gigs<br><span class="text-yellow-400">In Cape Town</span></h1>
@@ -74,7 +74,6 @@ function submitOwner(){
 </div>
 </div>
 </section>
-
 <section id="jobs" class="py-8 px-4 max-w-7xl mx-auto">
 <div class="flex flex-wrap gap-2 justify-center mb-6">
 <button onclick="filterSites('all',this)" class="filter-btn bg-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-sm">All</button>
@@ -88,7 +87,6 @@ function submitOwner(){
 <div class="site-card bg-white rounded-2xl shadow overflow-hidden border" data-category="driver"><img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=500&h=300&fit=crop" class="w-full h-44 object-cover"><div class="p-5"><h3 class="font-bold">Code 8 / Code 10 Driver</h3><p class="text-sm text-gray-500">Cape Town</p><a href="https://wa.me/27837327440" class="mt-4 block bg-black text-white rounded-full py-3 text-center text-sm font-bold">Apply via WhatsApp</a></div></div>
 </div>
 </section>
-
 <section id="ehailing" class="mt-10">
 <div class="bg-black border-y-[6px] border-yellow-400">
 <div class="max-w-6xl mx-auto px-4 py-12">
@@ -149,111 +147,32 @@ function submitOwner(){
 </div>
 </section>
 
-<!-- DRIVER FORM - UPDATED -->
-<div id="driverForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3">
-<div class="popup-box bg-white rounded-3xl p-6 relative">
-<button onclick="closePopup('driverForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full"><i class="fa-solid fa-xmark"></i></button>
-<h3 class="text-xl font-extrabold"><i class="fa-solid fa-car mr-2"></i>Driver - Ehailing Connect</h3>
-<div class="space-y-3 mt-5">
+<div id="driverForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3"><div class="popup-box bg-white rounded-3xl p-6 relative"><button onclick="closePopup('driverForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full"><i class="fa-solid fa-xmark"></i></button><h3 class="text-xl font-extrabold"><i class="fa-solid fa-car mr-2"></i>Driver</h3><div class="space-y-3 mt-5">
 <input id="d_name" placeholder="Full Name *" class="w-full border rounded-full px-4 py-3 text-sm">
-<input id="d_loc" placeholder="Location (e.g. Salt River) *" class="w-full border rounded-full px-4 py-3 text-sm">
-<input id="d_car" placeholder="Car wanted (optional)" class="w-full border rounded-full px-4 py-3 text-sm">
+<input id="d_loc" placeholder="Location *" class="w-full border rounded-full px-4 py-3 text-sm">
+<input id="d_car" placeholder="Car wanted" class="w-full border rounded-full px-4 py-3 text-sm">
+<select id="d_deposit_choice" onchange="toggleCustom('d')" class="w-full border-2 border-blue-200 rounded-full px-4 py-3 text-sm font-bold"><option value="">Deposit You Have? *</option><option>R0 - No Deposit</option><option>R500</option><option>R1000</option><option>R1500</option><option>R2000</option><option>R2500+</option><option value="Custom">✏️ Custom</option></select>
+<div id="d_custom_wrap" style="display:none"><input id="d_deposit_custom" placeholder="Custom" class="w-full border-2 border-yellow-400 bg-yellow-50 rounded-full px-4 py-3 text-sm font-bold"></div>
+<select id="d_license_type" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold bg-slate-50"><option value="">License Type? *</option><option value="SA License">🇿🇦 South African License</option><option value="Non-SA License">🌍 Non-SA License (Zim/Malawi etc)</option></select>
+<select id="d_criminal" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold bg-slate-50"><option value="">Criminal Background? *</option><option value="Has valid report">✅ I have valid Police Clearance Report</option><option value="No valid report">❌ I don't have valid report</option></select>
+<select id="d_profile" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold bg-blue-50"><option value="">Ehailing Profile Status? *</option><option value="Own profile - active">✅ Own ehailing profile (active)</option><option value="Using friends/partner profile">👥 Using my friend's / partner's profile</option><option value="Will register / Need help">🆕 Will register / Need help to register</option></select>
+<div class="bg-yellow-50 border border-yellow-300 rounded-xl p-3"><label class="flex gap-2"><input type="checkbox" id="d_agree" class="w-5 h-5"><span class="text-[11px]"><b>Agreement *</b> Refundable only if good shape</span></label></div>
+<button onclick="submitDriver()" class="w-full bg-black text-white py-4 rounded-full font-bold">SEND WHATSAPP</button>
+</div></div></div>
 
-<select id="d_deposit_choice" onchange="toggleCustom('d')" class="w-full border-2 border-blue-200 rounded-full px-4 py-3 text-sm font-bold">
-<option value="">Deposit You Have? *</option>
-<option>R0 - No Deposit</option><option>R500</option><option>R1000</option><option>R1500</option><option>R2000</option><option>R2500+</option>
-<option value="Custom">✏️ Custom</option>
-</select>
-<div id="d_custom_wrap" style="display:none"><input id="d_deposit_custom" placeholder="Enter custom deposit" class="w-full border-2 border-yellow-400 bg-yellow-50 rounded-full px-4 py-3 text-sm font-bold"></div>
-
-<!-- NEW: LICENSE TYPE -->
-<select id="d_license_type" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold bg-slate-50">
-<option value="">License Type? *</option>
-<option value="🇿🇦 SA License">🇿🇦 South African License</option>
-<option value="🌍 Non-SA License">🌍 Non-SA License (Zim/Malawi etc)</option>
-</select>
-
-<!-- NEW: CRIMINAL CHECK -->
-<select id="d_criminal" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold bg-slate-50">
-<option value="">Criminal Background? *</option>
-<option value="✅ Has valid Police Clearance">✅ I have valid Police Clearance / Criminal Report</option>
-<option value="❌ No valid report">❌ I don't have valid report</option>
-</select>
-
-<div class="bg-gray-50 border rounded-xl p-3">
-<p class="text-[11px] font-bold mb-2">Platforms (tick all):</p>
-<div class="grid grid-cols-2 gap-2 text-xs">
-<label><input type="checkbox" class="d_plat" value="UberX"> UberX</label>
-<label><input type="checkbox" class="d_plat" value="Uber Go"> Uber Go</label>
-<label><input type="checkbox" class="d_plat" value="Uber Black"> Uber Black</label>
-<label><input type="checkbox" class="d_plat" value="Bolt"> Bolt</label>
-<label><input type="checkbox" class="d_plat" value="inDriver"> inDriver</label>
-</div>
-</div>
-
-<div class="bg-yellow-50 border border-yellow-300 rounded-xl p-3">
-<label class="flex gap-2"><input type="checkbox" id="d_agree" class="w-5 h-5"><span class="text-[11px]"><b>Agreement *</b> Deposit refundable only if car returned in good shape</span></label>
-</div>
-<button onclick="submitDriver()" class="w-full bg-black text-white py-4 rounded-full font-bold">SEND WHATSAPP →</button>
-</div>
-</div>
-</div>
-
-<!-- OWNER FORM - UPDATED -->
-<div id="ownerForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3">
-<div class="popup-box bg-white rounded-3xl p-6 relative">
-<button onclick="closePopup('ownerForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full"><i class="fa-solid fa-xmark"></i></button>
-<h3 class="text-xl font-extrabold"><i class="fa-solid fa-car-side mr-2"></i>Owner - List Vehicle</h3>
-<div class="space-y-3 mt-5">
+<div id="ownerForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3"><div class="popup-box bg-white rounded-3xl p-6 relative"><button onclick="closePopup('ownerForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full"><i class="fa-solid fa-xmark"></i></button><h3 class="text-xl font-extrabold"><i class="fa-solid fa-car-side mr-2"></i>Owner</h3><div class="space-y-3 mt-5">
 <input id="o_name" placeholder="Full Name *" class="w-full border rounded-full px-4 py-3 text-sm">
-<input id="o_car" placeholder="Car Model * (e.g. Toyota Yaris 2021)" class="w-full border rounded-full px-4 py-3 text-sm">
-<select id="o_deposit_choice" onchange="toggleCustom('o')" class="w-full border-2 border-green-200 rounded-full px-4 py-3 text-sm font-bold">
-<option value="">Deposit You Want? *</option>
-<option>R0 - No Deposit</option><option>R1000</option><option>R1500</option><option>R2000</option><option>R2500+</option>
-<option value="Custom">✏️ Custom</option>
-</select>
-<div id="o_custom_wrap" style="display:none"><input id="o_deposit_custom" placeholder="Enter custom deposit" class="w-full border-2 border-yellow-400 bg-yellow-50 rounded-full px-4 py-3 text-sm font-bold"></div>
-<input id="o_loc" placeholder="Location * (e.g. Goodwood)" class="w-full border rounded-full px-4 py-3 text-sm">
+<input id="o_car" placeholder="Car Model *" class="w-full border rounded-full px-4 py-3 text-sm">
+<select id="o_deposit_choice" onchange="toggleCustom('o')" class="w-full border-2 border-green-200 rounded-full px-4 py-3 text-sm font-bold"><option value="">Deposit Accept? *</option><option>R0 - No Deposit</option><option>R1000</option><option>R1500</option><option>R2000</option><option>R2500+</option><option value="Custom">✏️ Custom</option></select>
+<div id="o_custom_wrap" style="display:none"><input id="o_deposit_custom" placeholder="Custom" class="w-full border-2 border-yellow-400 bg-yellow-50 rounded-full px-4 py-3 text-sm font-bold"></div>
+<input id="o_loc" placeholder="Location *" class="w-full border rounded-full px-4 py-3 text-sm">
+<select id="o_license_req" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">License You Accept? *</option><option value="Any License OK">Any License OK (SA + Non-SA) as long as profile + deposit</option><option value="SA Only">SA License Only</option></select>
+<select id="o_criminal_req" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">Criminal Report? *</option><option value="Don't mind">Don't mind - can get later</option><option value="Must have">Must have valid Criminal Report</option></select>
+<select id="o_ehailing_req" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">Ehailing Profile? *</option><option value="New drivers OK">New driver OK - I will help register</option><option value="Must have profile">Must have existing Uber/Bolt profile</option></select>
+<div class="bg-yellow-50 border border-yellow-300 rounded-xl p-3"><label class="flex gap-2"><input type="checkbox" id="o_agree" class="w-5 h-5"><span class="text-[11px]"><b>Agreement *</b> Deposit Refundable only if good shape</span></label></div>
+<button onclick="submitOwner()" class="w-full bg-yellow-400 text-black py-4 rounded-full font-extrabold">SEND WHATSAPP</button>
+</div></div></div>
 
-<!-- NEW: OWNER REQUIREMENTS -->
-<div class="bg-black text-white rounded-xl p-3">
-<p class="text-[11px] font-extrabold text-yellow-400 mb-2">DRIVER REQUIREMENTS:</p>
-<select id="o_license_req" class="w-full border rounded-full px-3 py-2.5 text-xs font-bold text-black mb-2">
-<option value="">License You Accept? *</option>
-<option value="Any License OK">Any License OK (SA + Non-SA) as long as ehailing profile + deposit</option>
-<option value="SA License Only">SA License Only</option>
-</select>
-<select id="o_criminal_req" class="w-full border rounded-full px-3 py-2.5 text-xs font-bold text-black mb-2">
-<option value="">Criminal Report Requirement? *</option>
-<option value="Don't mind">Don't mind - can get later</option>
-<option value="Must have valid report">Must have valid Criminal Report</option>
-</select>
-<select id="o_ehailing_req" class="w-full border rounded-full px-3 py-2.5 text-xs font-bold text-black">
-<option value="">Ehailing Profile? *</option>
-<option value="New drivers OK">New driver OK - I will help register</option>
-<option value="Must have existing profile">Must have existing Uber/Bolt profile</option>
-</select>
-</div>
-
-<div class="bg-gray-50 border rounded-xl p-3">
-<p class="text-[11px] font-bold mb-2">Platforms Your Car Qualifies For:</p>
-<div class="grid grid-cols-2 gap-2 text-xs">
-<label><input type="checkbox" class="o_plat" value="UberX"> UberX</label>
-<label><input type="checkbox" class="o_plat" value="Uber Go"> Uber Go</label>
-<label><input type="checkbox" class="o_plat" value="Uber Black"> Uber Black</label>
-<label><input type="checkbox" class="o_plat" value="Bolt"> Bolt</label>
-<label><input type="checkbox" class="o_plat" value="inDriver"> inDriver</label>
-</div>
-</div>
-
-<div class="bg-yellow-50 border border-yellow-300 rounded-xl p-3">
-<label class="flex gap-2"><input type="checkbox" id="o_agree" class="w-5 h-5"><span class="text-[11px]"><b>Agreement *</b> Deposit Refundable only if car returned in good shape. FREE listing for owners now.</span></label>
-</div>
-<button onclick="submitOwner()" class="w-full bg-yellow-400 text-black py-4 rounded-full font-extrabold">SEND WHATSAPP →</button>
-</div>
-</div>
-</div>
-
-<footer class="py-6 text-center bg-gray-900 text-gray-400 text-xs">&copy; 2026 QTP DAILY GIGS - EHAILING CONNECT | 0837327440</footer>
+<footer class="py-6 text-center bg-gray-900 text-gray-400 text-xs">&copy; 2026 QTP DAILY GIGS</footer>
 </body>
-                                                                           </html>
+</html>
