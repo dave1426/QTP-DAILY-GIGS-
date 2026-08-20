@@ -8,30 +8,32 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
-        function filterSites(category) {
-            const sites = document.querySelectorAll('.site-card');
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => { btn.classList.remove('bg-blue-600','text-white'); btn.classList.add('bg-gray-200','text-gray-700'); });
-            if(event){ event.target.classList.add('bg-blue-600','text-white'); event.target.classList.remove('bg-gray-200','text-gray-700'); }
-            sites.forEach(site => { site.style.display = (category==='all' || site.dataset.category===category)? 'block':'none'; });
+        function filterSites(category){
+            const sites=document.querySelectorAll('.site-card');
+            const btns=document.querySelectorAll('.filter-btn');
+            btns.forEach(b=>{b.classList.remove('bg-blue-600','text-white');b.classList.add('bg-gray-200','text-gray-700');});
+            if(event){event.target.classList.add('bg-blue-600','text-white');event.target.classList.remove('bg-gray-200','text-gray-700');}
+            sites.forEach(s=>{s.style.display=(category==='all'||s.dataset.category===category)?'block':'none';});
         }
-        function openPopup(id){ document.getElementById(id).classList.remove('hidden'); }
-        function closePopup(id){ document.getElementById(id).classList.add('hidden'); }
-        window.onclick = function(e){ if(e.target.id==='driverForm' || e.target.id==='ownerForm') e.target.classList.add('hidden'); }
+        function openPopup(id){document.getElementById(id).classList.remove('hidden');}
+        function closePopup(id){document.getElementById(id).classList.add('hidden');}
+        window.onclick=function(e){if(e.target.id==='driverForm'||e.target.id==='ownerForm')closePopup(e.target.id);}
 
         function submitDriver(){
             const name=document.getElementById('d_name').value;
             const loc=document.getElementById('d_loc').value;
             const car=document.getElementById('d_car').value;
             const deposit=document.getElementById('d_deposit').value;
+            const parking=document.getElementById('d_parking').value;
             const pdp=document.getElementById('d_pdp').value;
             const permit=document.getElementById('d_permit').value;
-            const parking=document.getElementById('d_parking').value;
             const platform=document.getElementById('d_platform').value;
             const plan=document.getElementById('d_plan').value;
-            if(!name||!loc||!car){ alert('Please fill Name, Location, Car'); return; }
-            let extraNote = deposit==="R0 - No Deposit"? "%0A⚠️ *Note: No deposit - Hard to match*" : "";
-            const msg=`*NEW DRIVER LEAD - QTP CONNECT*%0A%0A*Name:* ${name}%0A*Location:* ${loc}%0A*Car Wanted:* ${car}%0A*Deposit:* ${deposit}${extraNote}%0A*Safe Parking:* ${parking}%0A*PDP:* ${pdp}%0A*Need Permit?:* ${permit}%0A*Platform:* ${platform}%0A*Plan:* ${plan}`;
+            if(!name||!loc||!car||!deposit){alert('Fill Name, Location, Car(s), Deposit');return;}
+            let extra="";
+            if(deposit.includes("No Deposit")) extra="%0A⚠️ *No deposit - Very hard to match*";
+            if(deposit.includes("Installment")) extra="%0A*Flexible: Wants to pay deposit in installments until complete*";
+            const msg=`*NEW DRIVER LEAD - QTP*%0A%0A*Name:* ${name}%0A*Location:* ${loc}%0A*Car(s) Wanted:* ${car}%0A*Deposit:* ${deposit}${extra}%0A*Safe Parking:* ${parking}%0A*PDP:* ${pdp}%0A*Permit Preference:* ${permit}%0A*Platform:* ${platform}%0A*Plan:* ${plan}`;
             window.open(`https://wa.me/27837327440?text=${msg}`,'_blank');
         }
         function submitOwner(){
@@ -43,31 +45,28 @@
             const parking=document.getElementById('o_parking').value;
             const target=document.getElementById('o_target').value;
             const loc=document.getElementById('o_loc').value;
-            if(!name||!car||!loc){ alert('Please fill Name, Car, Location'); return; }
-            const msg=`*NEW OWNER LEAD - QTP CONNECT*%0A%0A*Name:* ${name}%0A*Car:* ${car} (${year})%0A*Permit?:* ${permit}%0A*Deposit Required:* ${deposit}%0A*Parking Required:* ${parking}%0A*Weekly Target:* R${target}%0A*Location:* ${loc}`;
+            if(!name||!car||!loc){alert('Fill Name, Car, Location');return;}
+            const msg=`*NEW OWNER LEAD - QTP*%0A%0A*Name:* ${name}%0A*Car:* ${car} (${year})%0A*Permit?:* ${permit}%0A*Deposit Required:* ${deposit}%0A*Parking Required:* ${parking}%0A*Weekly Target:* R${target}%0A*Location:* ${loc}`;
             window.open(`https://wa.me/27837327440?text=${msg}`,'_blank');
         }
     </script>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
-
 <header class="sticky top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
     <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" class="flex items-center gap-2.5 font-bold text-xl"><img src="1787084320805.png" alt="QTP Logo" class="w-10 h-10 rounded-full border-2 border-blue-600"><span>QTP <span class="text-blue-600">DAILY GIGS</span></span></a>
-        <div class="flex gap-2"><a href="#e-hailing" class="bg-blue-600 text-white px-4 py-2 rounded-full text-xs sm:text-sm font-bold">E-HAILING</a><a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20POST%20A%20JOB%20for%20free" target="_blank" class="bg-green-600 text-white px-4 py-2 rounded-full text-xs sm:text-sm font-bold">POST JOB FREE</a></div>
+        <a href="#" class="flex items-center gap-2.5 font-bold text-xl"><img src="1787084320805.png" class="w-10 h-10 rounded-full border-2 border-blue-600"><span>QTP <span class="text-blue-600">DAILY GIGS</span></span></a>
+        <div class="flex gap-2"><a href="#e-hailing" class="bg-blue-600 text-white px-4 py-2 rounded-full text-xs font-bold">E-HAILING</a><a href="https://wa.me/27837327440" target="_blank" class="bg-green-600 text-white px-4 py-2 rounded-full text-xs font-bold">POST JOB FREE</a></div>
     </div>
 </header>
-
 <section class="py-24 px-6 text-center bg-gradient-to-r from-blue-600 to-green-500 text-white">
     <div class="max-w-3xl mx-auto flex flex-col items-center">
-        <img src="1787084320805.png" alt="QTP Logo" class="w-20 h-20 rounded-full border-4 border-white mb-4 shadow-xl">
+        <img src="1787084320805.png" class="w-20 h-20 rounded-full border-4 border-white mb-4 shadow-xl">
         <h1 class="text-4xl sm:text-6xl font-extrabold mb-4">Daily Jobs in Cape Town</h1>
-        <p class="text-lg mb-4 max-w-2xl mx-auto">100% FREE to Apply and Post. Get hired in 48 hours. Plus E-Hailing Connect.</p>
+        <p class="text-lg mb-4">100% FREE to Apply and Post. Plus E-Hailing Connect.</p>
         <div class="bg-yellow-400 text-black font-bold px-6 py-3 rounded-full mb-8 flex items-center gap-2 shadow-lg"><i class="fa-solid fa-check-circle"></i> NO FEES. NO SCAMS. JUST JOBS.</div>
-        <div class="flex flex-col sm:flex-row gap-4"><a href="#jobs" class="bg-white text-blue-600 font-bold px-8 py-4 rounded-full shadow-xl hover:bg-gray-100">FIND A JOB NOW</a><a href="#e-hailing" class="bg-gray-900 text-white font-bold px-8 py-4 rounded-full shadow-xl hover:bg-black"><i class="fa-solid fa-car mr-2"></i> E-HAILING CONNECT</a></div>
+        <div class="flex flex-col sm:flex-row gap-4"><a href="#jobs" class="bg-white text-blue-600 font-bold px-8 py-4 rounded-full shadow-xl">FIND A JOB NOW</a><a href="#e-hailing" class="bg-gray-900 text-white font-bold px-8 py-4 rounded-full shadow-xl"><i class="fa-solid fa-car mr-2"></i> E-HAILING CONNECT</a></div>
     </div>
 </section>
-
 <section id="e-hailing" class="py-20 px-6 bg-white">
     <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl font-bold text-center mb-3">QTP E-HAILING CONNECT <i class="fa-solid fa-car-side"></i></h2>
@@ -78,38 +77,46 @@
             <span class="bg-blue-600 text-white px-4 py-2 rounded-full text-xs font-bold"><i class="fa-solid fa-car mr-1"></i> inDRIVER</span>
         </div>
         <div class="grid md:grid-cols-2 gap-8">
-            <div class="bg-gray-50 rounded-2xl shadow-xl p-8 border-t-4 border-blue-600"><i class="fa-solid fa-car-side text-blue-600 text-4xl mb-4"></i><h3 class="font-bold text-2xl mb-2">I'm a Driver</h3><p class="text-gray-600 mb-6">Looking for a car for Uber, Bolt, inDrive? Even with no deposit, apply.</p><button onclick="openPopup('driverForm')" class="w-full bg-blue-600 text-white px-6 py-3 rounded-full font-bold hover:bg-blue-700"><i class="fa-solid fa-car mr-2"></i> JOIN AS DRIVER →</button></div>
-            <div class="bg-gray-50 rounded-2xl shadow-xl p-8 border-t-4 border-green-600"><i class="fa-solid fa-car text-green-600 text-4xl mb-4"></i><h3 class="font-bold text-2xl mb-2">I'm an Owner</h3><p class="text-gray-600 mb-6">Have a car for Uber, Bolt, inDrive? List with your requirements.</p><button onclick="openPopup('ownerForm')" class="w-full bg-green-600 text-white px-6 py-3 rounded-full font-bold hover:bg-green-700"><i class="fa-solid fa-car-side mr-2"></i> LIST MY VEHICLE →</button></div>
+            <div class="bg-gray-50 rounded-2xl shadow-xl p-8 border-t-4 border-blue-600"><i class="fa-solid fa-car-side text-blue-600 text-4xl mb-4"></i><h3 class="font-bold text-2xl mb-2">I'm a Driver</h3><p class="text-gray-600 mb-6">Looking for a car? Even with no deposit or installment plan.</p><button onclick="openPopup('driverForm')" class="w-full bg-blue-600 text-white px-6 py-3 rounded-full font-bold"><i class="fa-solid fa-car mr-2"></i> JOIN AS DRIVER →</button></div>
+            <div class="bg-gray-50 rounded-2xl shadow-xl p-8 border-t-4 border-green-600"><i class="fa-solid fa-car text-green-600 text-4xl mb-4"></i><h3 class="font-bold text-2xl mb-2">I'm an Owner</h3><p class="text-gray-600 mb-6">Have a car? Choose if you accept no deposit or installments.</p><button onclick="openPopup('ownerForm')" class="w-full bg-green-600 text-white px-6 py-3 rounded-full font-bold"><i class="fa-solid fa-car-side mr-2"></i> LIST MY VEHICLE →</button></div>
         </div>
     </div>
 </section>
 
-<!-- DRIVER FORM -->
 <div id="driverForm" class="hidden fixed inset-0 bg-black/70 z-[70] flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl max-w-lg w-full p-6 my-8 relative">
         <button onclick="closePopup('driverForm')" class="absolute top-4 right-4 text-gray-500"><i class="fa-solid fa-xmark text-2xl"></i></button>
         <h3 class="text-2xl font-bold mb-2"><i class="fa-solid fa-car mr-2 text-blue-600"></i>Driver Details</h3>
-        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-3 mb-4 text-xs rounded"><b>⚠️ Note:</b> With deposit you get a car 5x faster. With no deposit it's almost impossible, but we will still try.</div>
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-3 mb-4 text-xs rounded"><b>⚠️ Note:</b> With deposit = 5x faster. No deposit = almost impossible. Installment must be agreed with owner.</div>
         <div class="space-y-3">
             <input id="d_name" type="text" placeholder="Full Name *" class="w-full border rounded-full px-4 py-3 text-sm">
             <input id="d_loc" type="text" placeholder="Your Location *" class="w-full border rounded-full px-4 py-3 text-sm">
-            <select id="d_car" class="w-full border rounded-full px-4 py-3 text-sm"><option value="">What car are you looking for? *</option><option>Toyota Corolla</option><option>Toyota Starlet</option><option>Suzuki Swift / Dzire</option><option>Honda Amaze</option><option>Any Small Hatchback</option></select>
-            <select id="d_deposit" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">Deposit You Have? *</option><option value="R0 - No Deposit">R0 - No Deposit (Hard to match)</option><option value="R500">R500</option><option value="R1000">R1000</option><option value="R1500">R1500</option><option value="R2000">R2000</option><option value="R2500+">R2500+</option></select>
+            <input id="d_car" type="text" placeholder="Car(s) you want - e.g. Corolla, Starlet, any small car *" class="w-full border rounded-full px-4 py-3 text-sm">
+            <select id="d_deposit" class="w-full border rounded-full px-4 py-3 text-sm font-bold">
+                <option value="">Deposit You Have? *</option>
+                <option value="R0 - No Deposit">R0 - No Deposit (Hard to match)</option>
+                <option value="Installment - Flexible until complete">Installment - Pay in parts until complete</option>
+                <option value="R500">R500</option>
+                <option value="R1000">R1000</option>
+                <option value="R1500">R1500</option>
+                <option value="R2000">R2000</option>
+                <option value="R2500+">R2500+</option>
+            </select>
             <div class="grid grid-cols-2 gap-3">
-                <select id="d_parking" class="border rounded-full px-4 py-3 text-sm"><option value="Yes">Safe Parking - Yes</option><option value="No">Safe Parking - No</option><option value="Street Parking">Street Parking</option></select>
+                <select id="d_parking" class="border rounded-full px-4 py-3 text-sm"><option value="Yes - Safe Parking">Safe Parking - Yes</option><option value="No - No Safe Parking">Safe Parking - No</option><option value="Street Parking">Street Parking</option></select>
                 <select id="d_pdp" class="border rounded-full px-4 py-3 text-sm"><option value="Yes">PDP - Yes</option><option value="No">PDP - No</option><option value="Processing">PDP - Processing</option></select>
             </div>
             <div class="grid grid-cols-2 gap-3">
-                <select id="d_permit" class="border rounded-full px-4 py-3 text-sm"><option value="Yes">Need Permit - Yes</option><option value="No">Need Permit - No</option></select>
+                <select id="d_permit" class="border rounded-full px-4 py-3 text-sm"><option value="Either - I don't mind">Permit - Either (Freedom)</option><option value="With Permit - Preferred">With Permit - Preferred</option><option value="Without Permit - OK">Without Permit - OK</option></select>
                 <select id="d_platform" class="border rounded-full px-4 py-3 text-sm"><option value="Uber">Uber</option><option value="Bolt">Bolt</option><option value="inDrive">inDrive</option><option value="Uber & Bolt">Uber & Bolt</option><option value="All Platforms">All Platforms</option></select>
             </div>
             <select id="d_plan" class="w-full border rounded-full px-4 py-3 text-sm bg-blue-50 font-bold"><option value="Basic R500">Basic - R500</option><option value="Premium R800">Premium - R800 (Best Value)</option></select>
-            <button onclick="submitDriver()" class="w-full bg-blue-600 text-white px-6 py-4 rounded-full font-bold hover:bg-blue-700"><i class="fa-brands fa-whatsapp mr-2"></i> SEND TO WHATSAPP</button>
+            <button onclick="submitDriver()" class="w-full bg-blue-600 text-white px-6 py-4 rounded-full font-bold"><i class="fa-brands fa-whatsapp mr-2"></i> SEND TO WHATSAPP</button>
         </div>
     </div>
 </div>
 
-<!-- OWNER FORM -->
+<!-- OWNER FORM - NOW WITH INSTALLMENT FLEXIBILITY -->
 <div id="ownerForm" class="hidden fixed inset-0 bg-black/70 z-[70] flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl max-w-lg w-full p-6 my-8 relative">
         <button onclick="closePopup('ownerForm')" class="absolute top-4 right-4 text-gray-500"><i class="fa-solid fa-xmark text-2xl"></i></button>
@@ -120,59 +127,48 @@
             <input id="o_car" type="text" placeholder="Car Model - e.g. Corolla 2022 *" class="w-full border rounded-full px-4 py-3 text-sm">
             <input id="o_year" type="text" placeholder="Year" class="w-full border rounded-full px-4 py-3 text-sm">
             <div class="grid grid-cols-2 gap-3">
-                <select id="o_permit" class="border rounded-full px-4 py-3 text-sm"><option value="Yes">Has Permit - Yes</option><option value="No">Has Permit - No</option></select>
-                <select id="o_deposit" class="border rounded-full px-4 py-3 text-sm"><option value="R0 - Accept No Deposit">Accept No Deposit</option><option value="R1000 Required">R1000 Required</option><option value="R1500 Required">R1500 Required</option><option value="R2000 Required">R2000 Required</option><option value="R2500+ Required">R2500+ Required</option></select>
+                <select id="o_permit" class="border rounded-full px-4 py-3 text-sm"><option value="Has Permit - Yes">Has Permit - Yes</option><option value="Has Permit - No">Has Permit - No</option></select>
+                <select id="o_deposit" class="border rounded-full px-4 py-3 text-sm font-bold">
+                    <option value="">Deposit Required? *</option>
+                    <option value="R0 - Accept No Deposit">R0 - Accept No Deposit</option>
+                    <option value="Accept Installment - Flexible until complete">Accept Installment - Flexible until complete</option>
+                    <option value="R1000 Required">R1000 Required</option>
+                    <option value="R1500 Required">R1500 Required</option>
+                    <option value="R2000 Required">R2000 Required</option>
+                    <option value="R2500+ Required">R2500+ Required</option>
+                </select>
             </div>
             <div class="grid grid-cols-2 gap-3">
                 <select id="o_parking" class="border rounded-full px-4 py-3 text-sm"><option value="Must Have Safe Parking">Must Have Safe Parking</option><option value="Parking Not Required">Parking Not Required</option></select>
                 <input id="o_target" type="number" placeholder="Weekly Target (R)" class="border rounded-full px-4 py-3 text-sm">
             </div>
             <input id="o_loc" type="text" placeholder="Your Location *" class="w-full border rounded-full px-4 py-3 text-sm">
-            <button onclick="submitOwner()" class="w-full bg-green-600 text-white px-6 py-4 rounded-full font-bold hover:bg-green-700"><i class="fa-brands fa-whatsapp mr-2"></i> SEND TO WHATSAPP</button>
+            <button onclick="submitOwner()" class="w-full bg-green-600 text-white px-6 py-4 rounded-full font-bold"><i class="fa-brands fa-whatsapp mr-2"></i> SEND TO WHATSAPP</button>
         </div>
     </div>
 </div>
 
-<!-- ORIGINAL JOBS DISPLAY - FULL 6 JOBS -->
 <section id="jobs" class="py-20 px-6 bg-gray-50">
     <div class="max-w-7xl mx-auto">
         <h2 class="text-3xl font-bold text-center mb-4">Latest Jobs in Cape Town <span class="text-green-500">✅</span></h2>
         <p class="text-center text-gray-600 mb-8">New jobs posted daily. Click "Apply on WhatsApp" to apply instantly.</p>
         <div class="flex flex-wrap justify-center gap-3 mb-12">
             <button onclick="filterSites('all')" class="filter-btn bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-bold shadow">All Jobs</button>
-            <button onclick="filterSites('e-hailing')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow hover:bg-gray-300">E-Hailing</button>
-            <button onclick="filterSites('cleaning')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow hover:bg-gray-300">Cleaning</button>
-            <button onclick="filterSites('construction')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow hover:bg-gray-300">Construction</button>
-            <button onclick="filterSites('retail')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow hover:bg-gray-300">Retail/Waitress</button>
-            <button onclick="filterSites('admin')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow hover:bg-gray-300">Admin/Office</button>
-            <button onclick="filterSites('security')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow hover:bg-gray-300">Security</button>
+            <button onclick="filterSites('e-hailing')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow">E-Hailing</button>
+            <button onclick="filterSites('cleaning')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow">Cleaning</button>
+            <button onclick="filterSites('construction')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow">Construction</button>
+            <button onclick="filterSites('retail')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow">Retail/Waitress</button>
+            <button onclick="filterSites('admin')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow">Admin/Office</button>
+            <button onclick="filterSites('security')" class="filter-btn bg-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-bold shadow">Security</button>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-blue-600" data-category="e-hailing">
-                <img src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&w=600" class="w-full h-48 object-cover">
-                <div class="p-6"><span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-bold">E-HAILING - UBER/BOLT</span><h3 class="font-bold text-xl mt-3 mb-2">Driver Needed - Toyota Corolla</h3><p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>Mitchells Plain</p><p class="text-gray-600 text-sm mb-4">R250/day. Deposit R2000. QTP Premium preferred.</p><button onclick="openPopup('driverForm')" class="w-full bg-blue-600 text-white px-4 py-3 rounded-full text-sm font-bold"><i class="fa-solid fa-car mr-2"></i> APPLY ON WHATSAPP →</button></div>
-            </div>
-            <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-green-500" data-category="cleaning">
-                <img src="https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&w=600" class="w-full h-48 object-cover">
-                <div class="p-6"><span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">CLEANING</span><h3 class="font-bold text-xl mt-3 mb-2">House Cleaner Needed</h3><p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>Claremont, Cape Town</p><p class="text-gray-600 text-sm mb-4">Mon-Fri. R250/day. Start immediately.</p><a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20House%20Cleaner%20Job" target="_blank" class="w-full bg-green-600 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a></div>
-            </div>
-            <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-orange-500" data-category="construction">
-                <img src="https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&w=600" class="w-full h-48 object-cover">
-                <div class="p-6"><span class="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-bold">CONSTRUCTION</span><h3 class="font-bold text-xl mt-3 mb-2">General Workers x5</h3><p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>CBD, Cape Town</p><p class="text-gray-600 text-sm mb-4">R300/day. No experience needed. Tools provided.</p><a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20General%20Worker%20Job" target="_blank" class="w-full bg-orange-600 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a></div>
-            </div>
-            <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-pink-500" data-category="retail">
-                <img src="https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&w=600" class="w-full h-48 object-cover">
-                <div class="p-6"><span class="text-xs bg-pink-100 text-pink-700 px-3 py-1 rounded-full font-bold">RETAIL/WAITRESS</span><h3 class="font-bold text-xl mt-3 mb-2">Waitress Needed</h3><p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>Sea Point, Cape Town</p><p class="text-gray-600 text-sm mb-4">Weekends + Tips. R200/day + food.</p><a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20Waitress%20Job" target="_blank" class="w-full bg-pink-600 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a></div>
-            </div>
-            <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-blue-500" data-category="admin">
-                <img src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&w=600" class="w-full h-48 object-cover">
-                <div class="p-6"><span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-bold">ADMIN/OFFICE</span><h3 class="font-bold text-xl mt-3 mb-2">Data Capturer</h3><p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>Remote / Bellville</p><p class="text-gray-600 text-sm mb-4">Part-time. R3500/month. Basic computer skills.</p><a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20Data%20Capturer%20Job" target="_blank" class="w-full bg-blue-600 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a></div>
-            </div>
-            <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-gray-700" data-category="security">
-                <img src="https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&w=600" class="w-full h-48 object-cover">
-                <div class="p-6"><span class="text-xs bg-gray-200 text-gray-800 px-3 py-1 rounded-full font-bold">SECURITY</span><h3 class="font-bold text-xl mt-3 mb-2">Security Guards Needed</h3><p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>Mitchells Plain</p><p class="text-gray-600 text-sm mb-4">Night shift. PSIRA required. R4000/month.</p><a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20Security%20Guard%20Job" target="_blank" class="w-full bg-gray-800 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a></div>
-            </div>
-            <div class="site-card bg-gradient-to-br from-green-500 to-blue-600 text-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition flex-col justify-center items-center text-center p-8" data-category="all"><i class="fa-solid fa-bullhorn text-5xl mb-4"></i><h3 class="font-bold text-2xl mb-2">Are You Hiring?</h3><p class="text-sm mb-6">Post your job here for FREE. Reach 1000+ job seekers in Cape Town.</p><a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20POST%20A%20JOB%20for%20free" target="_blank" class="bg-white text-green-600 px-6 py-3 rounded-full text-sm font-bold inline-block">POST A JOB FREE →</a></div>
+            <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-blue-600" data-category="e-hailing"><img src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&w=600" class="w-full h-48 object-cover"><div class="p-6"><span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-bold">E-HAILING - UBER/BOLT</span><h3 class="font-bold text-xl mt-3 mb-2">Driver Needed - Toyota Corolla</h3><p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>Mitchells Plain</p><p class="text-gray-600 text-sm mb-4">R250/day. Installment accepted.</p><button onclick="openPopup('driverForm')" class="w-full bg-blue-600 text-white px-4 py-3 rounded-full text-sm font-bold"><i class="fa-solid fa-car mr-2"></i> APPLY →</button></div></div>
+            <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-green-500" data-category="cleaning"><img src="https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&w=600" class="w-full h-48 object-cover"><div class="p-6"><span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">CLEANING</span><h3 class="font-bold text-xl mt-3 mb-2">House Cleaner Needed</h3><p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>Claremont</p><p class="text-gray-600 text-sm mb-4">Mon-Fri. R250/day. Start immediately.</p><a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20House%20Cleaner%20Job" target="_blank" class="w-full bg-green-600 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a></div></div>
+            <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-orange-500" data-category="construction"><img src="https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&w=600" class="w-full h-48 object-cover"><div class="p-6"><span class="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-bold">CONSTRUCTION</span><h3 class="font-bold text-xl mt-3 mb-2">General Workers x5</h3><p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>CBD, Cape Town</p><p class="text-gray-600 text-sm mb-4">R300/day. No experience needed.</p><a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20General%20Worker%20Job" target="_blank" class="w-full bg-orange-600 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a></div></div>
+            <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-pink-500" data-category="retail"><img src="https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&w=600" class="w-full h-48 object-cover"><div class="p-6"><span class="text-xs bg-pink-100 text-pink-700 px-3 py-1 rounded-full font-bold">RETAIL/WAITRESS</span><h3 class="font-bold text-xl mt-3 mb-2">Waitress Needed</h3><p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>Sea Point</p><p class="text-gray-600 text-sm mb-4">Weekends + Tips. R200/day + food.</p><a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20Waitress%20Job" target="_blank" class="w-full bg-pink-600 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a></div></div>
+            <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-blue-500" data-category="admin"><img src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&w=600" class="w-full h-48 object-cover"><div class="p-6"><span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-bold">ADMIN/OFFICE</span><h3 class="font-bold text-xl mt-3 mb-2">Data Capturer</h3><p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>Remote / Bellville</p><p class="text-gray-600 text-sm mb-4">Part-time. R3500/month.</p><a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20Data%20Capturer%20Job" target="_blank" class="w-full bg-blue-600 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a></div></div>
+            <div class="site-card bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition border-t-4 border-gray-700" data-category="security"><img src="https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&w=600" class="w-full h-48 object-cover"><div class="p-6"><span class="text-xs bg-gray-200 text-gray-800 px-3 py-1 rounded-full font-bold">SECURITY</span><h3 class="font-bold text-xl mt-3 mb-2">Security Guards Needed</h3><p class="text-gray-600 text-sm mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-2"></i>Mitchells Plain</p><p class="text-gray-600 text-sm mb-4">Night shift. PSIRA required. R4000/month.</p><a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20apply%20for%20Security%20Guard%20Job" target="_blank" class="w-full bg-gray-800 text-white px-4 py-3 rounded-full text-sm font-bold inline-block text-center">APPLY ON WHATSAPP →</a></div></div>
+            <div class="site-card bg-gradient-to-br from-green-500 to-blue-600 text-white rounded-2xl shadow-lg p-8 text-center" data-category="all"><i class="fa-solid fa-bullhorn text-5xl mb-4"></i><h3 class="font-bold text-2xl mb-2">Are You Hiring?</h3><p class="text-sm mb-6">Post your job here for FREE. Reach 1000+ job seekers.</p><a href="https://wa.me/27837327440?text=Hi,%20I%20want%20to%20POST%20A%20JOB%20for%20free" target="_blank" class="bg-white text-green-600 px-6 py-3 rounded-full text-sm font-bold inline-block">POST A JOB FREE →</a></div>
         </div>
     </div>
 </section>
@@ -181,17 +177,14 @@
     <div class="max-w-5xl mx-auto">
         <h2 class="text-3xl font-bold text-center mb-12">How QTP E-Hailing Connect Works</h2>
         <div class="grid md:grid-cols-3 gap-8 text-center">
-            <div class="p-6"><div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-1 text-blue-600 text-2xl"></i></div><h3 class="font-bold text-xl mb-2">1. Join QTP</h3><p class="text-gray-600">Create your verified profile and get access to our network.</p></div>
-            <div class="p-6"><div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-2 text-green-600 text-2xl"></i></div><h3 class="font-bold text-xl mb-2">2. Get Matched</h3><p class="text-gray-600">We connect you with a verified driver or owner for Uber, Bolt, inDrive.</p></div>
-            <div class="p-6"><div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-3 text-orange-600 text-2xl"></i></div><h3 class="font-bold text-xl mb-2">3. Sign & Drive</h3><p class="text-gray-600">Sign the QTP agreement and start earning professionally.</p></div>
+            <div class="p-6"><div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-1 text-blue-600 text-2xl"></i></div><h3 class="font-bold text-xl mb-2">1. Join QTP</h3><p class="text-gray-600">Create your verified profile and get access.</p></div>
+            <div class="p-6"><div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-2 text-green-600 text-2xl"></i></div><h3 class="font-bold text-xl mb-2">2. Get Matched</h3><p class="text-gray-600">We connect you with verified driver or owner for Uber, Bolt, inDrive.</p></div>
+            <div class="p-6"><div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-3 text-orange-600 text-2xl"></i></div><h3 class="font-bold text-xl mb-2">3. Sign & Drive</h3><p class="text-gray-600">Sign QTP agreement and start earning.</p></div>
         </div>
     </div>
 </section>
 
-<section id="contact" class="py-20 px-6 bg-blue-600 text-white text-center">
-    <div class="max-w-3xl mx-auto"><h2 class="text-3xl font-bold mb-4">Need Help or Want to Post a Job?</h2><p class="mb-8">Posting is FREE.</p><a href="https://wa.me/27837327440" target="_blank" class="bg-white text-blue-600 font-bold px-8 py-4 rounded-full shadow-xl inline-flex items-center"><i class="fa-brands fa-whatsapp mr-2 text-xl text-green-600"></i> WhatsApp Us</a></div>
-</section>
-
+<section id="contact" class="py-20 px-6 bg-blue-600 text-white text-center"><div class="max-w-3xl mx-auto"><h2 class="text-3xl font-bold mb-4">Need Help or Want to Post a Job?</h2><p class="mb-8">Posting is FREE.</p><a href="https://wa.me/27837327440" target="_blank" class="bg-white text-blue-600 font-bold px-8 py-4 rounded-full shadow-xl inline-flex items-center"><i class="fa-brands fa-whatsapp mr-2 text-xl text-green-600"></i> WhatsApp Us</a></div></section>
 <footer class="py-6 text-center bg-gray-900 text-gray-400 text-sm">&copy; 2026 QTP DAILY GIGS. Uber | Bolt | inDrive Connect.</footer>
 </body>
-            </html>
+                                                                                                                                                                                                 </html>
