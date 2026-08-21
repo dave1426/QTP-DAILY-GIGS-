@@ -8,13 +8,11 @@
 <meta property="og:title" content="QTP DAILY GIGS | EHAILLING CONNECT">
 <meta property="og:description" content="Find Daily Gigs in Cape Town - Retail, Domestic, Drivers & Ehailling">
 <meta property="og:image" content="https://qtp-daily-gigs-2u21.vercel.app/1787084320805.png">
-<meta property="og:url" content="https://qtp-daily-gigs-2u21.vercel.app/">
-<meta property="og:type" content="website">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 body{font-family:Inter,sans-serif;overflow-x:hidden}
-.popup-box{max-width:92%;width:500px;max-height:90vh;overflow-y:auto}
+.popup-box{max-width:92%;width:520px;max-height:92vh;overflow-y:auto}
 .pulse{animation:pulse 2s infinite}
 @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
 </style>
@@ -33,13 +31,14 @@ function submitDriver(){
  let licType=document.getElementById('d_license_type').value;
  let criminal=document.getElementById('d_criminal').value;
  let profile=document.getElementById('d_profile').value;
+ let idType=document.getElementById('d_id_type').value;
+ let idLast=document.getElementById('d_id_last').value.trim();
+ let carWanted=document.getElementById('d_car').value.trim();
  if(!document.getElementById('d_name').value.trim()||!document.getElementById('d_loc').value.trim()||!dep){alert('Fill Name, Location, Deposit');return;}
- if(!licType){alert('Select License Type');return;}
- if(!criminal){alert('Select Criminal status');return;}
- if(!profile){alert('Select Ehailing Profile status');return;}
+ if(!licType||!criminal||!profile){alert('Fill License, Criminal & Profile');return;}
+ if(!idType||!idLast){alert('Fill ID Type and Last 4 digits');return;}
  if(!document.getElementById('d_agree').checked){alert('Tick agreement');return;}
- let plats=[...document.querySelectorAll('.d_plat:checked')].map(e=>e.value).join(', ')||'Not selected';
- const msg=`*DRIVER - EHAlLING CONNECT*%0AName:${document.getElementById('d_name').value}%0ALoc:${document.getElementById('d_loc').value}%0ACar:${document.getElementById('d_car').value||'Any'}%0ADeposit:${dep}%0ALicense:${licType}%0ACriminal:${criminal}%0AProfile:${profile}%0APlatforms:${plats}%0A✅ Agreed good shape`;
+ const msg=`*DRIVER - EHAlLING*%0AName:${document.getElementById('d_name').value}%0ALoc:${document.getElementById('d_loc').value}%0ACar Wanted:${carWanted||'Any - e.g Toyota Etios Sedan 2024'}%0ADeposit:${dep}%0ALicense:${licType}%0ACriminal:${criminal}%0AProfile:${profile}%0AID:${idType}...${idLast}%0A✅ Agreed`;
  window.open(`https://wa.me/27837327440?text=${msg}`,'_blank');closePopup('driverForm');
 }
 function submitOwner(){
@@ -48,11 +47,16 @@ function submitOwner(){
  let licReq=document.getElementById('o_license_req').value;
  let crimReq=document.getElementById('o_criminal_req').value;
  let ehailReq=document.getElementById('o_ehailing_req').value;
- if(!document.getElementById('o_name').value.trim()||!document.getElementById('o_car').value.trim()||!dep){alert('Fill all');return;}
- if(!licReq||!crimReq||!ehailReq){alert('Fill all driver requirements');return;}
+ let brand=document.getElementById('o_brand').value;
+ let model=document.getElementById('o_model').value.trim();
+ let year=document.getElementById('o_year').value;
+ let idType=document.getElementById('o_id_type').value;
+ if(!document.getElementById('o_name').value.trim()||!brand||!model||!year||!dep){alert('Fill Name, Brand, Model, Year, Deposit');return;}
+ if(!licReq||!crimReq||!ehailReq){alert('Fill driver requirements');return;}
+ if(!idType){alert('Select ID requirement');return;}
  if(!document.getElementById('o_agree').checked){alert('Tick agreement');return;}
- let plats=[...document.querySelectorAll('.o_plat:checked')].map(e=>e.value).join(', ')||'Not selected';
- const msg=`*OWNER - EHAlLING CONNECT*%0AName:${document.getElementById('o_name').value}%0ACar:${document.getElementById('o_car').value}%0ADeposit:${dep}%0ALoc:${document.getElementById('o_loc').value}%0ALicense Accept:${licReq}%0ACriminal Req:${crimReq}%0AEhailing Req:${ehailReq}%0APlatforms:${plats}%0A✅ Agreed good shape`;
+ let fullCar=`${brand} ${model} ${year}`;
+ const msg=`*OWNER - EHAlLING*%0AName:${document.getElementById('o_name').value}%0ACar:${fullCar}%0ADeposit:${dep}%0ALoc:${document.getElementById('o_loc').value}%0ALicense Accept:${licReq}%0ACriminal Req:${crimReq}%0AEhailing:${ehailReq}%0AID Req:${idType}%0A✅ Agreed`;
  window.open(`https://wa.me/27837327440?text=${msg}`,'_blank');closePopup('ownerForm');
 }
 </script>
@@ -66,17 +70,17 @@ function submitOwner(){
 </header>
 <section class="text-white py-16 px-6 text-center bg-slate-900">
 <div class="max-w-3xl mx-auto">
-<h1 class="text-[34px] md:text-5xl font-extrabold tracking-tight drop-shadow-md">Find Daily Gigs<br><span class="text-yellow-400">In Cape Town</span></h1>
+<h1 class="text-[34px] md:text-5xl font-extrabold">Find Daily Gigs<br><span class="text-yellow-400">In Cape Town</span></h1>
 <p class="mt-3 text-blue-200 text-[15px] font-semibold">Retail • Domestic • Drivers • Ehailing</p>
 <div class="mt-6 flex justify-center gap-3">
-<a href="#jobs" class="bg-yellow-400 text-black px-6 py-3 rounded-full font-bold text-sm shadow-lg hover:bg-yellow-300 transition">Browse Jobs</a>
-<a href="#ehailing" class="bg-blue-600 text-white border border-blue-400 px-6 py-3 rounded-full font-extrabold text-sm shadow-lg pulse"><i class="fa-solid fa-car-side mr-2"></i>EHAILING CONNECT</a>
+<a href="#jobs" class="bg-yellow-400 text-black px-6 py-3 rounded-full font-bold text-sm">Browse Jobs</a>
+<a href="#ehailing" class="bg-blue-600 text-white border border-blue-400 px-6 py-3 rounded-full font-extrabold text-sm pulse"><i class="fa-solid fa-car-side mr-2"></i>EHAILING CONNECT</a>
 </div>
 </div>
 </section>
 <section id="jobs" class="py-8 px-4 max-w-7xl mx-auto">
 <div class="flex flex-wrap gap-2 justify-center mb-6">
-<button onclick="filterSites('all',this)" class="filter-btn bg-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-sm">All</button>
+<button onclick="filterSites('all',this)" class="filter-btn bg-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-bold">All</button>
 <button onclick="filterSites('retail',this)" class="filter-btn bg-white border px-5 py-2.5 rounded-full text-sm font-bold">Retail</button>
 <button onclick="filterSites('domestic',this)" class="filter-btn bg-white border px-5 py-2.5 rounded-full text-sm font-bold">Domestic</button>
 <button onclick="filterSites('driver',this)" class="filter-btn bg-white border px-5 py-2.5 rounded-full text-sm font-bold">Driver</button>
@@ -90,89 +94,53 @@ function submitOwner(){
 <section id="ehailing" class="mt-10">
 <div class="bg-black border-y-[6px] border-yellow-400">
 <div class="max-w-6xl mx-auto px-4 py-12">
-<div class="text-center">
-<span class="bg-yellow-400 text-black px-4 py-1.5 rounded-full text-[11px] font-extrabold pulse"><i class="fa-solid fa-fire mr-1"></i> HOTTEST IN CAPE TOWN • 200+ MATCHED</span>
-<h2 class="text-4xl md:text-5xl font-extrabold mt-4 text-white">EHAlLING<br><span class="text-yellow-400">CONNECT</span></h2>
-<p class="text-gray-300 mt-3 text-sm">Matched to real platforms - Uber, Bolt, inDriver + Black</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-<div class="bg-white rounded-2xl p-4 border-2 border-black">
-<div class="flex items-center gap-2"><span class="bg-black text-white px-3 py-1 rounded-full text-xs font-extrabold"><i class="fa-brands fa-uber mr-1"></i> UBER</span><span class="text-[10px] bg-gray-100 px-2 py-1 rounded-full font-bold">5 CATEGORIES</span></div>
-<div class="mt-3 space-y-1.5">
-<div class="flex justify-between bg-gray-50 rounded-full px-3 py-2 text-xs"><span class="font-bold">UberX</span><span class="text-gray-500">Corolla, Yaris, Swift</span></div>
-<div class="flex justify-between bg-gray-50 rounded-full px-3 py-2 text-xs"><span class="font-bold">Uber Go</span><span class="text-gray-500">Starlet, Swift</span></div>
-<div class="flex justify-between bg-gray-50 rounded-full px-3 py-2 text-xs"><span class="font-bold">UberXL</span><span class="text-gray-500">Ertiga, Avanza</span></div>
-<div class="flex justify-between bg-yellow-100 border border-yellow-400 rounded-full px-3 py-2 text-xs font-extrabold"><span>Uber Black <i class="fa-solid fa-crown ml-1 text-yellow-600"></i></span><span class="text-[10px]">Prestige+</span></div>
-<div class="flex justify-between bg-gray-50 rounded-full px-3 py-2 text-xs"><span class="font-bold">Comfort</span><span class="text-gray-500">Higher rated</span></div>
-</div>
-</div>
-<div class="bg-[#2EB875] rounded-2xl p-4 border-2 border-black">
-<div class="flex items-center gap-2"><span class="bg-black text-white px-3 py-1 rounded-full text-xs font-extrabold">BOLT</span><span class="text-[10px] bg-white/90 px-2 py-1 rounded-full font-bold">4 CATEGORIES</span></div>
-<div class="mt-3 space-y-1.5">
-<div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">Bolt</span><span class="text-gray-500">Yaris, Swift</span></div>
-<div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">Bolt Lite</span><span class="text-gray-500">Go, Starlet</span></div>
-<div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">Bolt XL</span><span class="text-gray-500">Ertiga, XL</span></div>
-<div class="flex justify-between bg-black text-white rounded-full px-3 py-2 text-xs font-bold"><span>Premium</span><span class="text-yellow-400 text-[10px]">Black equiv</span></div>
-</div>
-</div>
-<div class="bg-[#00C853] rounded-2xl p-4 border-2 border-black">
-<div class="flex items-center gap-2"><span class="bg-white text-black px-3 py-1 rounded-full text-xs font-extrabold">inDRIVER</span><span class="text-[10px] bg-black text-white px-2 py-1 rounded-full font-bold">NEGOTIATE</span></div>
-<div class="mt-3 space-y-1.5">
-<div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">Economy</span><span class="text-gray-500">Any ehailing car</span></div>
-<div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">Comfort</span><span class="text-gray-500">Yaris, Corolla</span></div>
-<div class="flex justify-between bg-white rounded-full px-3 py-2 text-xs"><span class="font-bold">XL / Minivan</span><span class="text-gray-500">Ertiga, Avanza</span></div>
-<div class="flex justify-between bg-yellow-300 border border-black rounded-full px-3 py-2 text-xs font-extrabold"><span>Business <i class="fa-solid fa-briefcase ml-1"></i></span><span class="text-[10px]">Black cars</span></div>
-</div>
-</div>
-</div>
+<div class="text-center"><span class="bg-yellow-400 text-black px-4 py-1.5 rounded-full text-[11px] font-extrabold pulse">HOTTEST IN CAPE TOWN • 200+ MATCHED</span><h2 class="text-4xl md:text-5xl font-extrabold mt-4 text-white">EHAlLING<br><span class="text-yellow-400">CONNECT</span></h2></div>
 <div class="grid md:grid-cols-2 gap-6 mt-8">
-<div class="bg-white rounded-[1.5rem] p-2 border-4 border-yellow-400 shadow-xl">
-<img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?w=600&h=300&fit=crop" class="w-full h-36 object-cover rounded-xl">
-<div class="p-4">
-<h3 class="font-extrabold text-lg mt-2">I'm a Driver</h3>
-<p class="text-xs text-gray-600">Match to Uber X/Go/Black, Bolt, inDriver</p>
-<button onclick="openPopup('driverForm')" class="mt-4 w-full bg-black text-white py-3 rounded-full font-bold text-sm"><i class="fa-solid fa-car mr-2"></i>JOIN AS DRIVER →</button>
-</div>
-</div>
-<div class="bg-yellow-400 rounded-[1.5rem] p-2 border-4 border-white shadow-xl">
-<img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=300&fit=crop" class="w-full h-36 object-cover rounded-xl">
-<div class="p-4">
-<h3 class="font-extrabold text-lg mt-2">I'm an Owner</h3>
-<p class="text-xs text-black/70">List for all platforms inc Black</p>
-<button onclick="openPopup('ownerForm')" class="mt-4 w-full bg-black text-yellow-400 py-3 rounded-full font-bold text-sm"><i class="fa-solid fa-key mr-2"></i>LIST MY VEHICLE →</button>
-</div>
-</div>
+<div class="bg-white rounded-[1.5rem] p-2 border-4 border-yellow-400 shadow-xl"><img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?w=600&h=300&fit=crop" class="w-full h-36 object-cover rounded-xl"><div class="p-4"><h3 class="font-extrabold text-lg">I'm a Driver</h3><button onclick="openPopup('driverForm')" class="mt-4 w-full bg-black text-white py-3 rounded-full font-bold text-sm"><i class="fa-solid fa-car mr-2"></i>JOIN AS DRIVER →</button></div></div>
+<div class="bg-yellow-400 rounded-[1.5rem] p-2 border-4 border-white shadow-xl"><img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=300&fit=crop" class="w-full h-36 object-cover rounded-xl"><div class="p-4"><h3 class="font-extrabold text-lg">I'm an Owner</h3><button onclick="openPopup('ownerForm')" class="mt-4 w-full bg-black text-yellow-400 py-3 rounded-full font-bold text-sm"><i class="fa-solid fa-key mr-2"></i>LIST MY VEHICLE →</button></div></div>
 </div>
 </div>
 </div>
 </section>
 
+<!-- DRIVER FORM FINAL -->
 <div id="driverForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3"><div class="popup-box bg-white rounded-3xl p-6 relative"><button onclick="closePopup('driverForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full"><i class="fa-solid fa-xmark"></i></button><h3 class="text-xl font-extrabold"><i class="fa-solid fa-car mr-2"></i>Driver</h3><div class="space-y-3 mt-5">
 <input id="d_name" placeholder="Full Name *" class="w-full border rounded-full px-4 py-3 text-sm">
 <input id="d_loc" placeholder="Location *" class="w-full border rounded-full px-4 py-3 text-sm">
-<input id="d_car" placeholder="Car wanted" class="w-full border rounded-full px-4 py-3 text-sm">
+<input id="d_car" placeholder="Car wanted e.g. Toyota Etios Sedan 2024" class="w-full border rounded-full px-4 py-3 text-sm">
 <select id="d_deposit_choice" onchange="toggleCustom('d')" class="w-full border-2 border-blue-200 rounded-full px-4 py-3 text-sm font-bold"><option value="">Deposit You Have? *</option><option>R0 - No Deposit</option><option>R500</option><option>R1000</option><option>R1500</option><option>R2000</option><option>R2500+</option><option value="Custom">✏️ Custom</option></select>
-<div id="d_custom_wrap" style="display:none"><input id="d_deposit_custom" placeholder="Custom" class="w-full border-2 border-yellow-400 bg-yellow-50 rounded-full px-4 py-3 text-sm font-bold"></div>
-<select id="d_license_type" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold bg-slate-50"><option value="">License Type? *</option><option value="SA License">🇿🇦 South African License</option><option value="Non-SA License">🌍 Non-SA License (Zim/Malawi etc)</option></select>
-<select id="d_criminal" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold bg-slate-50"><option value="">Criminal Background? *</option><option value="Has valid report">✅ I have valid Police Clearance Report</option><option value="No valid report">❌ I don't have valid report</option></select>
-<select id="d_profile" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold bg-blue-50"><option value="">Ehailing Profile Status? *</option><option value="Own profile - active">✅ Own ehailing profile (active)</option><option value="Using friends/partner profile">👥 Using my friend's / partner's profile</option><option value="Will register / Need help">🆕 Will register / Need help to register</option></select>
+<div id="d_custom_wrap" style="display:none"><input id="d_deposit_custom" placeholder="Custom deposit" class="w-full border-2 border-yellow-400 bg-yellow-50 rounded-full px-4 py-3 text-sm font-bold"></div>
+<select id="d_license_type" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold bg-slate-50"><option value="">License Type? *</option><option value="SA License">🇿🇦 South African License</option><option value="Non-SA License">🌍 Non-SA License (Zim/Malawi)</option></select>
+<select id="d_criminal" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold bg-slate-50"><option value="">Criminal Background? *</option><option value="Has valid report">✅ I have valid Police Clearance</option><option value="No valid report">❌ I don't have valid report</option></select>
+<select id="d_profile" class="w-full border-2 border-blue-100 rounded-full px-4 py-3 text-sm font-bold bg-blue-50"><option value="">Ehailing Profile? *</option><option value="Own profile active">✅ Own ehailing profile - active</option><option value="Using friends profile">👥 Using my friend's / partner's profile</option><option value="Will register">🆕 Will register / Need help</option></select>
+<div class="grid grid-cols-2 gap-2">
+<select id="d_id_type" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold"><option value="">ID Type? *</option><option value="SA ID">SA ID</option><option value="Passport">Passport</option><option value="License No">License No</option></select>
+<input id="d_id_last" placeholder="Last 4 digits *" maxlength="4" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold" >
+</div>
 <div class="bg-yellow-50 border border-yellow-300 rounded-xl p-3"><label class="flex gap-2"><input type="checkbox" id="d_agree" class="w-5 h-5"><span class="text-[11px]"><b>Agreement *</b> Refundable only if good shape</span></label></div>
 <button onclick="submitDriver()" class="w-full bg-black text-white py-4 rounded-full font-bold">SEND WHATSAPP</button>
 </div></div></div>
 
+<!-- OWNER FORM FINAL - CAR BRAND + TYPE + YEAR -->
 <div id="ownerForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3"><div class="popup-box bg-white rounded-3xl p-6 relative"><button onclick="closePopup('ownerForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full"><i class="fa-solid fa-xmark"></i></button><h3 class="text-xl font-extrabold"><i class="fa-solid fa-car-side mr-2"></i>Owner</h3><div class="space-y-3 mt-5">
 <input id="o_name" placeholder="Full Name *" class="w-full border rounded-full px-4 py-3 text-sm">
-<input id="o_car" placeholder="Car Model *" class="w-full border rounded-full px-4 py-3 text-sm">
+<div class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-3">
+<p class="text-[11px] font-extrabold mb-2">CAR DETAILS *</p>
+<select id="o_brand" class="w-full border rounded-full px-4 py-3 text-sm font-bold mb-2"><option value="">Brand? *</option><option>Toyota</option><option>Suzuki</option><option>VW</option><option>Hyundai</option><option>Kia</option><option>Renault</option><option>Nissan</option><option>Ford</option><option>Other</option></select>
+<input id="o_model" placeholder="Model & Type e.g. Etios Sedan / Swift Hatch *" class="w-full border rounded-full px-4 py-3 text-sm font-bold mb-2">
+<select id="o_year" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">Year Model? *</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option><option>2018</option><option>Older</option></select>
+</div>
 <select id="o_deposit_choice" onchange="toggleCustom('o')" class="w-full border-2 border-green-200 rounded-full px-4 py-3 text-sm font-bold"><option value="">Deposit Accept? *</option><option>R0 - No Deposit</option><option>R1000</option><option>R1500</option><option>R2000</option><option>R2500+</option><option value="Custom">✏️ Custom</option></select>
 <div id="o_custom_wrap" style="display:none"><input id="o_deposit_custom" placeholder="Custom" class="w-full border-2 border-yellow-400 bg-yellow-50 rounded-full px-4 py-3 text-sm font-bold"></div>
 <input id="o_loc" placeholder="Location *" class="w-full border rounded-full px-4 py-3 text-sm">
-<select id="o_license_req" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">License You Accept? *</option><option value="Any License OK">Any License OK (SA + Non-SA) as long as profile + deposit</option><option value="SA Only">SA License Only</option></select>
-<select id="o_criminal_req" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">Criminal Report? *</option><option value="Don't mind">Don't mind - can get later</option><option value="Must have">Must have valid Criminal Report</option></select>
-<select id="o_ehailing_req" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">Ehailing Profile? *</option><option value="New drivers OK">New driver OK - I will help register</option><option value="Must have profile">Must have existing Uber/Bolt profile</option></select>
+<select id="o_license_req" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">License You Accept? *</option><option value="Any License OK">Any License OK (SA + Non-SA)</option><option value="SA Only">SA License Only</option></select>
+<select id="o_criminal_req" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">Criminal Report? *</option><option value="Don't mind">Don't mind</option><option value="Must have">Must have valid report</option></select>
+<select id="o_ehailing_req" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">Ehailing Profile? *</option><option value="New drivers OK">New driver OK - I will help</option><option value="Must have profile">Must have existing profile</option></select>
+<select id="o_id_type" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">Driver ID You Accept? *</option><option value="Any valid ID OK">Any valid ID OK (SA ID / Passport / License)</option><option value="SA ID Only">SA ID Only</option><option value="Passport OK">Passport OK</option></select>
 <div class="bg-yellow-50 border border-yellow-300 rounded-xl p-3"><label class="flex gap-2"><input type="checkbox" id="o_agree" class="w-5 h-5"><span class="text-[11px]"><b>Agreement *</b> Deposit Refundable only if good shape</span></label></div>
 <button onclick="submitOwner()" class="w-full bg-yellow-400 text-black py-4 rounded-full font-extrabold">SEND WHATSAPP</button>
 </div></div></div>
 
 <footer class="py-6 text-center bg-gray-900 text-gray-400 text-xs">&copy; 2026 QTP DAILY GIGS</footer>
 </body>
-</html>
+ </html>
