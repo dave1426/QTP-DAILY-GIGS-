@@ -1,0 +1,18 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Admin</title><script src="https://cdn.tailwindcss.com"></script></head><body class="p-4 bg-gray-50">
+<script>
+const DB_D='qtp_drivers_v2';const DB_O='qtp_owners_v2';
+function getD(){try{return JSON.parse(localStorage.getItem(DB_D)||'[]')}catch{return[]}}
+function getO(){try{return JSON.parse(localStorage.getItem(DB_O)||'[]')}catch{return[]}}
+function parseMoney(s){if(!s)return 0;let m=s.match(/\d+/g);return m?parseInt(m.join('')):0;}
+function score(d,o){let sc=0;if(parseMoney(d.deposit)>=parseMoney(o.depositWant))sc+=30;if(parseMoney(d.target)>=parseMoney(o.targetReq))sc+=30;if((d.location||'').toLowerCase().includes((o.location||'').toLowerCase().substring(0,4)))sc+=20;if(o.licenseReq.includes('Any')||d.licenseType===o.licenseReq)sc+=20;return sc;}
+let pass=prompt('Password:'); if(pass!=='QTP2026'){document.body.innerHTML='Wrong password';}
+else {
+ let d=getD();let o=getO();
+ let html=`<h1 class="text-2xl font-extrabold">ADMIN - ${d.length} Drivers / ${o.length} Owners</h1>`;
+ let matches=[]; d.forEach(drv=>{o.forEach(own=>{let s=score(drv,own); if(s>=50)matches.push({drv,own,s});})});
+ matches.sort((a,b)=>b.s-a.s);
+ html+=`<div class="mt-4"><h2 class="font-bold">🔥 TOP MATCHES</h2>`+matches.slice(0,20).map(m=>`<div class="bg-white border-2 ${m.s>=80?'border-green-500':'border-yellow-400'} rounded-xl p-3 mt-2 text-xs"><b>${m.s}% MATCH</b><br>Driver: ${m.drv.name} - Has ${m.drv.deposit} / ${m.drv.target} - ${m.drv.location}<br>Owner: ${m.own.name} - ${m.own.brand} ${m.own.model} - Wants ${m.own.depositWant} / ${m.own.targetReq}<br><a href="https://wa.me/27837327440?text=MATCH%20${m.s}%25%20${m.drv.name}%20%3C-%3E%20${m.own.name}" class="mt-2 inline-block bg-black text-white px-3 py-1 rounded-full">WhatsApp</a></div>`).join('')+`</div>`;
+ html+=`<div class="grid md:grid-cols-2 gap-4 mt-6"><div><h3 class="font-bold">Drivers</h3>${d.map(x=>`<div class="bg-white border p-2 mt-1 text-xs rounded">${x.name} - ${x.location} - ${x.deposit} / ${x.target}</div>`).join('')}</div><div><h3 class="font-bold">Owners</h3>${o.map(x=>`<div class="bg-white border p-2 mt-1 text-xs rounded">${x.name} - ${x.brand} ${x.model} - ${x.depositWant} / ${x.targetReq}</div>`).join('')}</div></div>`;
+ document.body.innerHTML=html;
+}
+</script></body></html>
