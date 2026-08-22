@@ -14,8 +14,6 @@ body{font-family:Inter,system-ui,sans-serif}
 @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
 </style>
 <script>
-const FORMSPREE_URL = "https://formspree.io/f/mzepwkpj";
-
 function filterSites(c,el){
 document.querySelectorAll('.filter-btn').forEach(b=>b.className='filter-btn bg-white border px-4 py-2 rounded-full text-sm font-bold');
 el.className='filter-btn bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold';
@@ -30,6 +28,8 @@ function submitDriver(){
  let phone=document.getElementById('d_phone').value.trim();
  let loc=document.getElementById('d_loc').value.trim();
  let car=document.getElementById('d_car').value.trim();
+ let carType=document.getElementById('d_car_type').value;
+ let transmission=document.getElementById('d_transmission').value;
  let dep=document.getElementById('d_deposit_choice').value;
  let target=document.getElementById('d_target').value.trim();
  let licType=document.getElementById('d_license_type').value;
@@ -39,38 +39,29 @@ function submitDriver(){
  let idLast=document.getElementById('d_id_last').value.trim();
  
  if(!name||!phone||!loc||!dep){alert('Fill Name, Phone, Location, Deposit');return;}
+ if(!carType||!transmission){alert('Fill Car Type and Transmission');return;}
  if(!target){alert('Fill Target - What you can afford');return;}
  if(!licType||!criminal||!profile){alert('Fill License, Criminal & Profile');return;}
  if(!idType||!idLast){alert('Fill ID Type and Last 4 digits');return;}
  if(!document.getElementById('d_agree').checked){alert('Please tick the agreement box');return;}
 
- const formData = new FormData();
- formData.append("Form_Type", "NEW DRIVER APPLICATION");
- formData.append("Name", name);
- formData.append("Phone", phone);
- formData.append("Location", loc);
- formData.append("Car_Wanted", car);
- formData.append("Deposit", dep);
- formData.append("Target_Afford", target);
- formData.append("License", licType);
- formData.append("Criminal", criminal);
- formData.append("Profile", profile);
- formData.append("ID_Info", `${idType} - ${idLast}`);
+ let whatsappMessage = `*NEW DRIVER APPLICATION*%0A` +
+ `----------------------------------%0A` +
+ `*Name:* ${name}%0A` +
+ `*Phone:* ${phone}%0A` +
+ `*Location:* ${loc}%0A` +
+ `*Car Wanted:* ${car}%0A` +
+ `*Car Type:* ${carType}%0A` +
+ `*Transmission:* ${transmission}%0A` +
+ `*Deposit:* ${dep}%0A` +
+ `*Target/Afford:* ${target}%0A` +
+ `*License:* ${licType}%0A` +
+ `*Criminal Record:* ${criminal}%0A` +
+ `*Profile Status:* ${profile}%0A` +
+ `*ID Info:* ${idType} - ${idLast}`;
 
- fetch(FORMSPREE_URL, {
-   method: 'POST',
-   body: formData,
-   headers: { 'Accept': 'application/json' }
- }).then(response => {
-   if (response.ok) {
-     alert('Driver application submitted successfully!');
-     closePopup('driverForm');
-   } else {
-     alert('Submission error. Please check your details.');
-   }
- }).catch(error => {
-   alert('Network error. Please try again.');
- });
+ window.open(`https://wa.me/27837327440?text=${whatsappMessage}`, '_blank');
+ closePopup('driverForm');
 }
 
 function submitOwner(){
@@ -79,6 +70,8 @@ function submitOwner(){
  let loc=document.getElementById('o_loc').value.trim();
  let brand=document.getElementById('o_brand').value;
  let model=document.getElementById('o_model').value.trim();
+ let carType=document.getElementById('o_car_type').value;
+ let transmission=document.getElementById('o_transmission').value;
  let year=document.getElementById('o_year').value;
  let dep=document.getElementById('o_deposit_choice').value;
  let target=document.getElementById('o_target').value.trim();
@@ -88,41 +81,32 @@ function submitOwner(){
  let idType=document.getElementById('o_id_type').value;
 
  if(!name||!phone||!loc||!brand||!model||!year||!dep){alert('Fill Name, Phone, Location, Brand, Model, Year, Deposit');return;}
+ if(!carType||!transmission){alert('Fill Car Type and Transmission');return;}
  if(!target){alert('Fill Target Required');return;}
  if(!licReq||!crimReq||!ehailReq||!idType){alert('Fill all requirements & ID selections');return;}
  if(!document.getElementById('o_agree').checked){alert('Please tick the agreement box');return;}
 
- const formData = new FormData();
- formData.append("Form_Type", "NEW VEHICLE LISTING");
- formData.append("Owner_Name", name);
- formData.append("Phone", phone);
- formData.append("Location", loc);
- formData.append("Car_Details", `${brand} ${model} ${year}`);
- formData.append("Deposit_Wanted", dep);
- formData.append("Target_Required", target);
- formData.append("License_Accept", licReq);
- formData.append("Criminal_Req", crimReq);
- formData.append("Profile_Req", ehailReq);
- formData.append("ID_Req", idType);
+ let whatsappMessage = `*NEW VEHICLE LISTING*%0A` +
+ `----------------------------------%0A` +
+ `*Owner Name:* ${name}%0A` +
+ `*Phone:* ${phone}%0A` +
+ `*Location:* ${loc}%0A` +
+ `*Car Details:* ${brand} ${model} (${year})%0A` +
+ `*Car Type:* ${carType}%0A` +
+ `*Transmission:* ${transmission}%0A` +
+ `*Deposit Wanted:* ${dep}%0A` +
+ `*Target Required:* ${target}%0A` +
+ `*License Accepted:* ${licReq}%0A` +
+ `*Criminal Req:* ${crimReq}%0A` +
+ `*Profile Req:* ${ehailReq}%0A` +
+ `*ID Req:* ${idType}`;
 
- fetch(FORMSPREE_URL, {
-   method: 'POST',
-   body: formData,
-   headers: { 'Accept': 'application/json' }
- }).then(response => {
-   if (response.ok) {
-     alert('Vehicle listed successfully!');
-     closePopup('ownerForm');
-   } else {
-     alert('Submission error. Please check your details.');
-   }
- }).catch(error => {
-   alert('Network error. Please try again.');
- });
+ window.open(`https://wa.me/27837327440?text=${whatsappMessage}`, '_blank');
+ closePopup('ownerForm');
 }
 </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-55">
 
 <header class="sticky top-0 z-50 border-b border-blue-900 shadow-md bg-slate-900">
 <div class="max-w-7xl mx-auto px-4 h-[65px] flex justify-between items-center text-white">
@@ -209,6 +193,10 @@ function submitOwner(){
 <input id="d_phone" placeholder="WhatsApp Phone Number * e.g. 0821234567" class="w-full border rounded-full px-4 py-3 text-sm font-bold bg-green-50 border-green-300">
 <input id="d_loc" placeholder="Location * e.g. Khayelitsha" class="w-full border rounded-full px-4 py-3 text-sm">
 <input id="d_car" placeholder="Car wanted e.g. Toyota Etios Sedan 2024" class="w-full border rounded-full px-4 py-3 text-sm">
+<div class="grid grid-cols-2 gap-2">
+<select id="d_car_type" class="w-full border-2 border-blue-200 rounded-full px-4 py-3 text-sm font-bold"><option value="">Car Type? *</option><option value="Sedan">Sedan</option><option value="Hatchback">Hatchback</option><option value="SUV">SUV</option><option value="Minibus/MPV">Minibus / MPV</option></select>
+<select id="d_transmission" class="w-full border-2 border-blue-200 rounded-full px-4 py-3 text-sm font-bold"><option value="">Transmission? *</option><option value="Manual">Manual</option><option value="Automatic">Automatic</option><option value="Either">Either / Both</option></select>
+</div>
 <select id="d_deposit_choice" class="w-full border-2 border-blue-200 rounded-full px-4 py-3 text-sm font-bold"><option value="">Deposit You Have? *</option><option>R0 - No Deposit</option><option>R500</option><option>R1000</option><option>R1500</option><option>R2000</option><option>R2500+</option><option value="I can pay in installments">📅 I can pay in installments</option></select>
 <input id="d_target" placeholder="Target - What I can afford per week? * e.g. R1500/week" class="w-full border-2 border-amber-300 rounded-full px-4 py-3 text-sm font-bold bg-amber-50">
 <select id="d_license_type" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold bg-slate-50"><option value="">License Type? *</option><option value="SA License">🇿🇦 South African License</option><option value="Non-SA License">🌍 Non-SA License</option></select>
@@ -222,7 +210,7 @@ function submitOwner(){
 <p class="text-[12px] font-extrabold">💰 Connection Fee: R500 - Payable after we find a match for you</p>
 <label class="flex gap-2 mt-3 bg-white border rounded-xl p-2 cursor-pointer"><input type="checkbox" id="d_agree" class="w-5 h-5 mt-0.5"><span class="text-[11px]"><b>Agreement *</b> I understand deposit is refundable only if car is returned in good shape & I must pay my target on time. I agree to R500 fee after match.</span></label>
 </div>
-<button onclick="submitDriver()" class="w-full bg-black text-white py-4 rounded-full font-bold">SUBMIT APPLICATION</button>
+<button onclick="submitDriver()" class="w-full bg-black text-white py-4 rounded-full font-bold">SUBMIT APPLICATION VIA WHATSAPP</button>
 </div>
 </div>
 </div>
@@ -240,6 +228,10 @@ function submitOwner(){
 <p class="text-[11px] font-extrabold mb-2">CAR DETAILS *</p>
 <select id="o_brand" class="w-full border rounded-full px-4 py-3 text-sm font-bold mb-2"><option value="">Brand? *</option><option>Toyota</option><option>Suzuki</option><option>VW</option><option>Hyundai</option><option>Kia</option><option>Renault</option><option>Nissan</option><option>Ford</option><option>Other</option></select>
 <input id="o_model" placeholder="Model & Type e.g. Etios Sedan / Swift Hatch *" class="w-full border rounded-full px-4 py-3 text-sm font-bold mb-2">
+<div class="grid grid-cols-2 gap-2 mb-2">
+<select id="o_car_type" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">Car Type? *</option><option value="Sedan">Sedan</option><option value="Hatchback">Hatchback</option><option value="SUV">SUV</option><option value="Minibus/MPV">Minibus / MPV</option></select>
+<select id="o_transmission" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">Transmission? *</option><option value="Manual">Manual</option><option value="Automatic">Automatic</option></select>
+</div>
 <select id="o_year" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">Year Model? *</option><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option></select>
 </div>
 <select id="o_deposit_choice" class="w-full border-2 border-green-200 rounded-full px-4 py-3 text-sm font-bold"><option value="">Deposit You Want? *</option><option>R0 - No Deposit</option><option>R1000</option><option>R1500</option><option>R2000</option><option>R2500+</option><option value="I accept installments">📅 I accept installments</option></select>
@@ -249,7 +241,7 @@ function submitOwner(){
 <select id="o_ehailing_req" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">eHailing Profile? *</option><option value="New drivers OK">New driver OK - I will help register</option><option value="Must have profile">Must have existing Uber/Bolt profile</option></select>
 <select id="o_id_type" class="w-full border rounded-full px-4 py-3 text-sm font-bold"><option value="">Driver ID You Accept? *</option><option value="Any valid ID OK">Any valid ID OK</option><option value="SA ID Only">SA ID Only</option></select>
 <div class="bg-yellow-50 border border-yellow-300 rounded-xl p-3"><label class="flex gap-2 cursor-pointer"><input type="checkbox" id="o_agree" class="w-5 h-5 mt-0.5"><span class="text-[11px]"><b>Agreement *</b> I understand deposit is refundable only if car is returned in good shape.</span></label></div>
-<button onclick="submitOwner()" class="w-full bg-yellow-400 text-black py-4 rounded-full font-extrabold">SUBMIT VEHICLE</button>
+<button onclick="submitOwner()" class="w-full bg-yellow-400 text-black py-4 rounded-full font-extrabold">SUBMIT VEHICLE VIA WHATSAPP</button>
 </div>
 </div>
 </div>
