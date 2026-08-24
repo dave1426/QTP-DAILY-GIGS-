@@ -19,10 +19,8 @@ document.querySelectorAll('.filter-btn').forEach(b=>b.className='filter-btn bg-w
 el.className='filter-btn bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold';
 document.querySelectorAll('.site-card').forEach(x=>x.style.display=(c==='all'||x.dataset.category===c)?'block':'none');
 }
-
 function openPopup(id){document.getElementById(id).classList.remove('hidden');document.body.style.overflow='hidden';}
 function closePopup(id){document.getElementById(id).classList.add('hidden');document.body.style.overflow='auto';}
-
 function submitDriver(){
  let name=document.getElementById('d_name').value.trim();
  let phone=document.getElementById('d_phone').value.trim();
@@ -37,33 +35,17 @@ function submitDriver(){
  let profile=document.getElementById('d_profile').value;
  let idType=document.getElementById('d_id_type').value;
  let idLast=document.getElementById('d_id_last').value.trim();
- 
  if(!name||!phone||!loc||!dep){alert('Fill Name, Phone, Location, Deposit');return;}
  if(!carType||!transmission){alert('Fill Car Type and Transmission');return;}
  if(!target){alert('Fill Target - What you can afford');return;}
  if(!licType||!criminal||!profile){alert('Fill License, Criminal & Profile');return;}
  if(!idType||!idLast){alert('Fill ID Type and Last 4 digits');return;}
+ if(!document.getElementById('d_fee_agree').checked){alert('Please tick the R500 Connection Fee agreement - Required');return;}
  if(!document.getElementById('d_agree').checked){alert('Please tick the agreement box');return;}
-
- let whatsappMessage = `*NEW DRIVER APPLICATION*%0A` +
- `----------------------------------%0A` +
- `*Name:* ${name}%0A` +
- `*Phone:* ${phone}%0A` +
- `*Location:* ${loc}%0A` +
- `*Car Wanted:* ${car}%0A` +
- `*Car Type:* ${carType}%0A` +
- `*Transmission:* ${transmission}%0A` +
- `*Deposit:* ${dep}%0A` +
- `*Target/Afford:* ${target}%0A` +
- `*License:* ${licType}%0A` +
- `*Criminal Record:* ${criminal}%0A` +
- `*Profile Status:* ${profile}%0A` +
- `*ID Info:* ${idType} - ${idLast}`;
-
+ let whatsappMessage = `*NEW DRIVER APPLICATION*%0A----------------------------------%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Location:* ${loc}%0A*Car Wanted:* ${car}%0A*Car Type:* ${carType}%0A*Transmission:* ${transmission}%0A*Deposit:* ${dep}%0A*Target/Afford:* ${target}%0A*License:* ${licType}%0A*Criminal Record:* ${criminal}%0A*Profile Status:* ${profile}%0A*ID Info:* ${idType} - ${idLast}%0A*R500 Fee Agreed:* YES - Payable after match`;
  window.open(`https://wa.me/27837327440?text=${whatsappMessage}`, '_blank');
  closePopup('driverForm');
 }
-
 function submitOwner(){
  let name=document.getElementById('o_name').value.trim();
  let phone=document.getElementById('o_phone').value.trim();
@@ -79,44 +61,25 @@ function submitOwner(){
  let crimReq=document.getElementById('o_criminal_req').value;
  let ehailReq=document.getElementById('o_ehailing_req').value;
  let idType=document.getElementById('o_id_type').value;
-
  if(!name||!phone||!loc||!brand||!model||!year||!dep){alert('Fill Name, Phone, Location, Brand, Model, Year, Deposit');return;}
  if(!carType||!transmission){alert('Fill Car Type and Transmission');return;}
  if(!target){alert('Fill Target Required');return;}
  if(!licReq||!crimReq||!ehailReq||!idType){alert('Fill all requirements & ID selections');return;}
  if(!document.getElementById('o_agree').checked){alert('Please tick the agreement box');return;}
-
- let whatsappMessage = `*NEW VEHICLE LISTING*%0A` +
- `----------------------------------%0A` +
- `*Owner Name:* ${name}%0A` +
- `*Phone:* ${phone}%0A` +
- `*Location:* ${loc}%0A` +
- `*Car Details:* ${brand} ${model} (${year})%0A` +
- `*Car Type:* ${carType}%0A` +
- `*Transmission:* ${transmission}%0A` +
- `*Deposit Wanted:* ${dep}%0A` +
- `*Target Required:* ${target}%0A` +
- `*License Accepted:* ${licReq}%0A` +
- `*Criminal Req:* ${crimReq}%0A` +
- `*Profile Req:* ${ehailReq}%0A` +
- `*ID Req:* ${idType}`;
-
+ let whatsappMessage = `*NEW VEHICLE LISTING*%0A----------------------------------%0A*Owner Name:* ${name}%0A*Phone:* ${phone}%0A*Location:* ${loc}%0A*Car Details:* ${brand} ${model} (${year})%0A*Car Type:* ${carType}%0A*Transmission:* ${transmission}%0A*Deposit Wanted:* ${dep}%0A*Target Required:* ${target}%0A*License Accepted:* ${licReq}%0A*Criminal Req:* ${crimReq}%0A*Profile Req:* ${ehailReq}%0A*ID Req:* ${idType}`;
  window.open(`https://wa.me/27837327440?text=${whatsappMessage}`, '_blank');
  closePopup('ownerForm');
 }
 </script>
 </head>
 <body class="bg-gray-55">
-
 <header class="sticky top-0 z-50 border-b border-blue-900 shadow-md bg-slate-900">
 <div class="max-w-7xl mx-auto px-4 h-[65px] flex justify-between items-center text-white">
 <a class="flex gap-2 font-extrabold text-[18px] items-center cursor-pointer"><img src="1787084320805.png" class="w-9 h-9 rounded-full border-2 border-yellow-400 shadow" alt="Logo">QTP <span class="text-yellow-400">DAILY GIGS</span></a>
 <nav><a href="#ehailing" class="bg-gradient-to-r from-yellow-400 to-amber-500 text-black px-4 py-2 rounded-full text-xs font-extrabold shadow-lg pulse"><i class="fa-solid fa-car mr-1"></i> EHAILING CONNECT 🔥</a></nav>
 </div>
 </header>
-
 <div class="bg-yellow-400 text-black text-center py-2.5 font-extrabold text-[12px] border-b-2 border-black sticky top-[65px] z-40">⚠️ DRIVER CONNECTION FEE: R500 - Payable after we find a match for you | No upfront!</div>
-
 <section class="text-white py-16 px-6 text-center bg-slate-900">
 <div class="max-w-3xl mx-auto">
 <h1 class="text-[34px] md:text-5xl font-extrabold tracking-tight">Find Daily Gigs<br><span class="text-yellow-400">In Cape Town</span></h1>
@@ -127,7 +90,6 @@ function submitOwner(){
 </div>
 </div>
 </section>
-
 <section id="jobs" class="py-8 px-4 max-w-7xl mx-auto">
 <div class="flex flex-wrap gap-2 justify-center mb-6">
 <button onclick="filterSites('all',this)" class="filter-btn bg-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-sm">All</button>
@@ -150,7 +112,6 @@ function submitOwner(){
 </div>
 </div>
 </section>
-
 <section id="ehailing" class="mt-10">
 <div class="bg-black border-y-[6px] border-yellow-400">
 <div class="max-w-6xl mx-auto px-4 py-12">
@@ -182,8 +143,6 @@ function submitOwner(){
 </div>
 </div>
 </section>
-
-<!-- DRIVER POPUP -->
 <div id="driverForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3">
 <div class="popup-box bg-white rounded-3xl p-6 relative">
 <button onclick="closePopup('driverForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full font-bold"><i class="fa-solid fa-xmark"></i></button>
@@ -206,16 +165,14 @@ function submitOwner(){
 <select id="d_id_type" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold"><option value="">ID Type? *</option><option value="SA ID">SA ID</option><option value="Passport">Passport</option><option value="License No">License No</option></select>
 <input id="d_id_last" placeholder="Last 4 digits *" maxlength="4" class="w-full border-2 border-slate-300 rounded-full px-4 py-3 text-sm font-bold">
 </div>
-<div class="bg-yellow-50 border-2 border-yellow-400 rounded-xl p-3">
-<p class="text-[12px] font-extrabold">💰 Connection Fee: R500 - Payable after we find a match for you</p>
-<label class="flex gap-2 mt-3 bg-white border rounded-xl p-2 cursor-pointer"><input type="checkbox" id="d_agree" class="w-5 h-5 mt-0.5"><span class="text-[11px]"><b>Agreement *</b> I understand deposit is refundable only if car is returned in good shape & I must pay my target on time. I agree to R500 fee after match.</span></label>
+<div class="bg-yellow-50 border-2 border-yellow-400 rounded-xl p-3 space-y-3">
+<label class="flex gap-3 bg-white border-2 border-yellow-400 rounded-xl p-3 cursor-pointer shadow-sm"><input type="checkbox" id="d_fee_agree" class="w-5 h-5 mt-0.5 accent-black"><span class="text-[11px] leading-[1.4]"><b class="text-[12px]">💰 R500 Connection Fee Agreement *</b><br>I agree to pay the R500 connection fee payable <b>AFTER</b> you find a match for me. No upfront fee. This fee is required to secure the car.</span></label>
+<label class="flex gap-2 bg-white border rounded-xl p-2 cursor-pointer"><input type="checkbox" id="d_agree" class="w-5 h-5 mt-0.5"><span class="text-[11px]"><b>General Agreement *</b> I understand deposit is refundable only if car is returned in good shape & I must pay my target on time.</span></label>
 </div>
 <button onclick="submitDriver()" class="w-full bg-black text-white py-4 rounded-full font-bold">SUBMIT APPLICATION VIA WHATSAPP</button>
 </div>
 </div>
 </div>
-
-<!-- OWNER POPUP -->
 <div id="ownerForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3">
 <div class="popup-box bg-white rounded-3xl p-6 relative">
 <button onclick="closePopup('ownerForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full font-bold"><i class="fa-solid fa-xmark"></i></button>
@@ -245,7 +202,6 @@ function submitOwner(){
 </div>
 </div>
 </div>
-
 <footer class="py-6 text-center bg-gray-900 text-gray-400 text-xs">&copy; 2026 QTP DAILY GIGS - Driver Fee R500 after match - No upfront</footer>
 </body>
-</html>
+ </html>
