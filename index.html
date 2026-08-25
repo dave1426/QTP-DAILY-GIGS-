@@ -31,6 +31,7 @@ function openPopup(id){document.getElementById(id).classList.remove('hidden');do
 function closePopup(id){document.getElementById(id).classList.add('hidden');document.body.style.overflow='auto';}
 function submitDriver(){
  let name=document.getElementById('d_name').value.trim();
+ let gender=document.getElementById('d_gender').value;
  let phone=document.getElementById('d_phone').value.trim();
  let loc=document.getElementById('d_loc').value.trim();
  let car=document.getElementById('d_car').value.trim();
@@ -43,19 +44,20 @@ function submitDriver(){
  let profile=document.getElementById('d_profile').value;
  let idType=document.getElementById('d_id_type').value;
  let idLast=document.getElementById('d_id_last').value.trim();
- if(!name||!phone||!loc||!dep){alert('Fill Name, Phone, Location, Deposit');return;}
+ if(!name||!gender||!phone||!loc||!dep){alert('Fill Name, Gender, Phone, Location, Deposit');return;}
  if(!carType||!transmission){alert('Fill Car Type and Transmission');return;}
  if(!target){alert('Fill Target - What you can afford');return;}
  if(!licType||!criminal||!profile){alert('Fill License, Criminal & Profile');return;}
  if(!idType||!idLast){alert('Fill ID Type and Last 4 digits');return;}
  if(!document.getElementById('d_fee_agree').checked){alert('Please tick the R500 Connection Fee agreement - Required');return;}
  if(!document.getElementById('d_agree').checked){alert('Please tick the agreement box');return;}
- let whatsappMessage = `*NEW DRIVER APPLICATION*%0A----------------------------------%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Location:* ${loc}%0A*Car Wanted:* ${car}%0A*Car Type:* ${carType}%0A*Transmission:* ${transmission}%0A*Deposit:* ${dep}%0A*Target/Afford:* ${target}%0A*License:* ${licType}%0A*Criminal Record:* ${criminal}%0A*Profile Status:* ${profile}%0A*ID Info:* ${idType} - ${idLast}%0A*R500 Fee Agreed:* YES - Payable after match`;
+ let whatsappMessage = `*NEW DRIVER APPLICATION*%0A----------------------------------%0A*Name:* ${name}%0A*Gender:* ${gender}%0A*Phone:* ${phone}%0A*Location:* ${loc}%0A*Car Wanted:* ${car}%0A*Car Type:* ${carType}%0A*Transmission:* ${transmission}%0A*Deposit:* ${dep}%0A*Target/Afford:* ${target}%0A*License:* ${licType}%0A*Criminal Record:* ${criminal}%0A*Profile Status:* ${profile}%0A*ID Info:* ${idType} - ${idLast}%0A*R500 Fee Agreed:* YES - Payable after match`;
  window.open(`https://wa.me/27837327440?text=${whatsappMessage}`, '_blank');
  closePopup('driverForm');
 }
 function submitOwner(){
  let name=document.getElementById('o_name').value.trim();
+ let gender=document.getElementById('o_gender').value;
  let phone=document.getElementById('o_phone').value.trim();
  let loc=document.getElementById('o_loc').value.trim();
  let brand=document.getElementById('o_brand').value;
@@ -69,12 +71,12 @@ function submitOwner(){
  let crimReq=document.getElementById('o_criminal_req').value;
  let ehailReq=document.getElementById('o_ehailing_req').value;
  let idType=document.getElementById('o_id_type').value;
- if(!name||!phone||!loc||!brand||!model||!year||!dep){alert('Fill Name, Phone, Location, Brand, Model, Year, Deposit');return;}
+ if(!name||!gender||!phone||!loc||!brand||!model||!year||!dep){alert('Fill Name, Gender, Phone, Location, Brand, Model, Year, Deposit');return;}
  if(!carType||!transmission){alert('Fill Car Type and Transmission');return;}
  if(!target){alert('Fill Target Required');return;}
  if(!licReq||!crimReq||!ehailReq||!idType){alert('Fill all requirements & ID selections');return;}
  if(!document.getElementById('o_agree').checked){alert('Please tick the agreement box');return;}
- let whatsappMessage = `*NEW VEHICLE LISTING*%0A----------------------------------%0A*Owner Name:* ${name}%0A*Phone:* ${phone}%0A*Location:* ${loc}%0A*Car Details:* ${brand} ${model} (${year})%0A*Car Type:* ${carType}%0A*Transmission:* ${transmission}%0A*Deposit Wanted:* ${dep}%0A*Target Required:* ${target}%0A*License Accepted:* ${licReq}%0A*Criminal Req:* ${crimReq}%0A*Profile Req:* ${ehailReq}%0A*ID Req:* ${idType}`;
+ let whatsappMessage = `*NEW VEHICLE LISTING*%0A----------------------------------%0A*Owner Name:* ${name}%0A*Gender:* ${gender}%0A*Phone:* ${phone}%0A*Location:* ${loc}%0A*Car Details:* ${brand} ${model} (${year})%0A*Car Type:* ${carType}%0A*Transmission:* ${transmission}%0A*Deposit Wanted:* ${dep}%0A*Target Required:* ${target}%0A*License Accepted:* ${licReq}%0A*Criminal Req:* ${crimReq}%0A*Profile Req:* ${ehailReq}%0A*ID Req:* ${idType}`;
  window.open(`https://wa.me/27837327440?text=${whatsappMessage}`, '_blank');
  closePopup('ownerForm');
 }
@@ -151,12 +153,15 @@ function submitOwner(){
 </div>
 </div>
 </section>
+
+<!-- Driver Form Popup -->
 <div id="driverForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3">
 <div class="popup-box bg-white rounded-3xl p-6 relative">
 <button onclick="closePopup('driverForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full font-bold"><i class="fa-solid fa-xmark"></i></button>
 <h3 class="text-xl font-extrabold"><i class="fa-solid fa-car mr-2"></i>Driver - R500 After Match</h3>
 <div class="space-y-3 mt-5">
 <input id="d_name" placeholder="Full Name *" class="w-full border rounded-full px-4 py-3 text-sm">
+<select id="d_gender" class="w-full border-2 border-blue-200 rounded-full px-4 py-3 text-sm font-bold"><option value="">Gender? *</option><option value="Male">Male</option><option value="Female">Female</option></select>
 <input id="d_phone" placeholder="WhatsApp Phone Number * e.g. 0821234567" class="w-full border rounded-full px-4 py-3 text-sm font-bold bg-green-50 border-green-300">
 <input id="d_loc" placeholder="Location * e.g. Khayelitsha" class="w-full border rounded-full px-4 py-3 text-sm">
 <input id="d_car" placeholder="Car wanted e.g. Toyota Etios Sedan 2024" class="w-full border rounded-full px-4 py-3 text-sm">
@@ -181,12 +186,15 @@ function submitOwner(){
 </div>
 </div>
 </div>
+
+<!-- Owner Form Popup -->
 <div id="ownerForm" class="hidden fixed inset-0 bg-black/70 z-[99] flex items-center justify-center p-3">
 <div class="popup-box bg-white rounded-3xl p-6 relative">
 <button onclick="closePopup('ownerForm')" class="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full font-bold"><i class="fa-solid fa-xmark"></i></button>
 <h3 class="text-xl font-extrabold"><i class="fa-solid fa-car-side mr-2"></i>Owner - List Vehicle</h3>
 <div class="space-y-3 mt-5">
 <input id="o_name" placeholder="Full Name *" class="w-full border rounded-full px-4 py-3 text-sm">
+<select id="o_gender" class="w-full border-2 border-green-200 rounded-full px-4 py-3 text-sm font-bold"><option value="">Gender? *</option><option value="Male">Male</option><option value="Female">Female</option></select>
 <input id="o_phone" placeholder="WhatsApp Phone Number * e.g. 0821234567" class="w-full border rounded-full px-4 py-3 text-sm font-bold bg-green-50 border-green-300">
 <input id="o_loc" placeholder="Location * e.g. Sea Point" class="w-full border rounded-full px-4 py-3 text-sm">
 <div class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-3">
